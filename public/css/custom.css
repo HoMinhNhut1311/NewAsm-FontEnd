@@ -1,0 +1,249 @@
+/* your styles go here */
+
+.wmnbrandBackGround {
+    background-color: #14532d82 !important;
+}
+
+.wmnbrandBackGroundSecond {
+    background-color: rgba(0, 0, 0, 0.588) !important;
+}
+
+.wmnbrandTextColorWhite {
+    color: #f8fafc !important;
+}
+
+.wmn-input {
+    border-bottom: 0.1px solid green !important;
+    color: orange !important;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.wmn-input::placeholder {
+    color: white !important;
+}
+
+.wmnLink {
+    text-decoration: none;
+    color: #86efac !important;
+}
+
+.colorBoostrap {
+    color: #38bdf8 !important;
+}
+
+.myLabel {
+    min-width: 90px;
+}
+
+.mySearch {
+    border: none;
+    font-size: 20px;
+    background-color: #23252a;
+    color: #db6574;
+}
+
+.myInput {
+    flex: 1;
+    background-color: #23252a;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid white;
+    padding: 0.375rem 0.75rem;
+    word-spacing: 2px;
+}
+
+.myInput:focus {
+    background-color: #23252a;
+    color: white;
+    padding: 10px;
+    font-size: 18px;
+}
+
+.login-page {
+    background-image: url(https://wallpapercg.com/media/ts_orig/11758.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.myHoverInput {
+    border-color: #db6574;
+}
+
+.searchUser {
+    width: 100%;
+    background-color: #23252a;
+    border: none;
+    border-bottom: 1px solid white;
+    padding: 8px;
+    font-size: 18px;
+    color: white;
+}
+
+.search-content {
+    background-color: red;
+    border: 1px solid white;
+    border: 10px;
+}
+
+.btn-search {
+    font-size: 20px;
+    color: gold;
+}
+
+.btn-search:hover {
+    color: gold;
+    border: 1px solid red;
+}
+
+.infor-search {
+    color: green;
+    font-weight: bold;
+}
+
+.director {
+    min-height: 70px;
+    background-color: #2d3035;
+}
+
+.director-title {
+    margin-left: 20px;
+    font-weight: bold;
+    line-height: 70px;
+}
+
+.path {
+    margin-top: 15px;
+    background-color: #23252a;
+    height: 40px;
+    margin-left: 20px;
+}
+
+.path-main {
+    font-weight: bold;
+    margin-right: 5px;
+    color: rgb(228, 52, 52);
+}
+
+.path-text {
+    font-weight: 100;
+    margin-left: 5px;
+    color: white;
+}
+
+.navigate {
+    margin-bottom: 10px;
+}
+
+.content {
+    margin: 10px 20px;
+}
+
+.hoverTabel:hover {
+    background-color: orange;
+}
+
+.hoverTabel:hover td {
+    color: white;
+    font-style: italic;
+}
+
+
+.search-hover-result:hover {
+    color: white !important;
+}
+
+
+
+
+.search-hover-result:hover {
+    background-color: #adb1ba;
+}
+
+.search-container {
+    position: relative;
+}
+
+.result-container {
+    position: absolute;
+    width: 100%;
+    border: 1px solid white;
+}
+
+.result-element {
+    background-color: white;
+}
+
+.text-result {
+    color: black;
+}
+
+.border-right {
+    border-right: 1px solid green;
+}
+
+.border-bottom{
+    border-bottom: 1px solid green !important;
+}
+
+.border-all {
+    border: 1px solid green;
+}
+
+.border-none {
+    border: none;
+}
+
+.bg-brand {
+    background-color: #23252a !important;
+}
+
+.sidebar-nav:hover {
+    cursor: cell;
+    background-color: greenyellow;
+    color: black !important;
+}
+
+.text-green-yellow {
+    color: yellowgreen;
+}
+
+.userDetail-container {
+    min-height: 400px;
+}
+
+.disable {
+    background-color: black !important;
+}
+
+.my-loader-wrapper {
+    position: absolute;
+    width: 100vw;;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.708);
+    z-index: 10000;
+}
+.nav-text {
+    font-size: 15px;
+}
+.my-loader {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-10%,-40%);
+}
+
+.hero {
+    background-image: url('../images/chooseus-bg.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.img-listCourse {
+    width: 130px;
+    height: 70px;
+    border-radius: 40px;
+}
+
+
