@@ -64,7 +64,7 @@ function Sidebar({handleActive, active , isLite}) {
             title : 'Danh sách sản phẩm',
             des : ''
           })}>
-            <Link className="sidebar-link" to={"course"}>
+            <Link className="sidebar-link" to={"product/overview"}>
               <svg className="svg-icon svg-icon-sm svg-icon-heavy">
               <FontAwesomeIcon icon={faGraduationCap} />
               </svg>

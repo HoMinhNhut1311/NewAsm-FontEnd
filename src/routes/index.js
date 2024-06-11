@@ -7,6 +7,7 @@ import AdminHome from "../Admin/Home/AdminHome"
 import UserOverView from "../Admin/User/UserOverView"
 import UserSearch from "../Admin/User/UserSearch"
 import UserDetail from "../Admin/User/UserDetail"
+import ProductOverView from "../Admin/Product/ProductOverView"
 // Public Route
 const publicRoutes = [
     { path: "/" , component: Home},
@@ -25,6 +26,19 @@ const privateRoutes = [
             path : "user", childrenRoute : [
                 {
                     path : "overview" , component : UserOverView
+                },
+                {
+                    path: "search", component : UserSearch
+                },
+                {
+                    path : "detail/:idUser", component : UserDetail
+                }
+            ]
+        },
+        {
+            path : "product", childrenRoute : [
+                {
+                    path : "overview" , component : ProductOverView
                 },
                 {
                     path: "search", component : UserSearch
