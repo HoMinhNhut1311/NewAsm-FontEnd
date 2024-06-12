@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {createUser} from '../../../Data/User/userApi'
 import Swal from "sweetalert2";
 import { RingLoader } from "react-spinners";
+import { getAllRole } from "../../../Data/Role/RoleApi";
 
 
 function CreateUser({refresh}) {
@@ -10,6 +11,14 @@ function CreateUser({refresh}) {
         password : '',
         roleNames : []
     })
+
+    const [roles, setRoles] = useState([])
+
+
+    useEffect(() => {
+        getAllRole().then(res => setRoles(res));
+    },[])
+
 
     const [onLoad, setOnLoad] = useState(false);
 
@@ -40,7 +49,7 @@ function CreateUser({refresh}) {
             if (res.status === 200) {
                 Swal.fire({
                     title : 'Tạo tài khoản thành công!',
-                    text : `${res.data.userName} -- ${res.data.password} -- ${res.data.roleNames}`,
+                    text : `${res.data.userName} -- ${res.data.roleNames}`,
                     icon : 'success'
                 }).then(() => {
                     setUserCreate({
@@ -99,62 +108,23 @@ function CreateUser({refresh}) {
                 <div className="my-2">
                 <label htmlFor="" >Chức vụ</label>
                 </div>
-
-                <div className="form-check form-check-inline">
-                    <input
-                        className="form-check-input"
-                        type="checkbox"
-                        id="user"
-                        value={'Admin'}
-                        checked={userCreate.roleNames.includes('Admin')}
-                        onChange={(e) => handleRole(e.target.value)}
-                    />
-                    <label className="form-check-label" htmlFor="user">
-                        Admin
-                    </label>
-                </div>
-
-                <div className="form-check form-check-inline">
-                    <input
-                        className="form-check-input"
-                        type="checkbox"
-                        id="admin"
-                        value={'Staff'}
-                        checked={userCreate.roleNames.includes('Staff')}
-                        onChange={(e) => handleRole(e.target.value)}
-                    />
-                    <label className="form-check-label" htmlFor="admin ">
-                        Staff
-                    </label>
-                </div>
-
-                <div className="form-check form-check-inline">
-                    <input
-                        className="form-check-input"
-                        type="checkbox"
-                        id="admin"
-                        value={'Teacher'}
-                        checked={userCreate.roleNames.includes('Teacher')}
-                        onChange={(e) => handleRole(e.target.value)}
-                    />
-                    <label className="form-check-label" htmlFor="admin ">
-                        Teacher
-                    </label>
-                </div>
-
-                <div className="form-check form-check-inline">
-                    <input
-                        className="form-check-input"
-                        type="checkbox"
-                        id="admin"
-                        value={'User'}
-                        checked={userCreate.roleNames.includes('User')}
-                        onChange={(e) => handleRole(e.target.value)}
-                    />
-                    <label className="form-check-label" htmlFor="admin ">
-                        User
-                    </label>
-                </div>
+                {roles.map((role) => {
+    return (
+        <div className="form-check form-check-inline" key={role.roleName}>
+            <input
+                className="form-check-input"
+                type="checkbox"
+                id={role.roleName}
+                value={role.roleName}
+                checked={userCreate.roleNames.includes(role.roleName)}
+                onChange={(e) => handleRole(e.target.value)}
+            />
+            <label className="form-check-label" htmlFor={role.roleName}>
+                {role.roleName}
+            </label>
+        </div>
+    );
+})}
 
                 <div className="d-flex justify-content-end">
                 <button className="btn btn-primary mt-3 p-2" onClick={(e) => handleSubmit(e)}>Tạo mới</button>

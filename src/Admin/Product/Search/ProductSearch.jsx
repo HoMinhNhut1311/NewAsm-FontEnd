@@ -8,7 +8,7 @@ function ProductSearch({keyWord,setKeyWord}) {
 
     return (
         <div className="userEdit-container">
-            <div className="keyWord-contain">
+            <div className="keyWord-contain mb-2">
                 {keyWord && (
                     <>
                         <span>Tìm kiếm kết quả cho: </span>

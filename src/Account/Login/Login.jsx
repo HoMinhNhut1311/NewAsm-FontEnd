@@ -5,6 +5,7 @@ import '../../../public/css/style.default.css'
 import '../../../public/css/custom.css'
 import { loginApi } from '../../Data/User/userApi';
 import UserContext from '../../Context/userContext';
+import { RingLoader } from 'react-spinners';
 
 
 function Login() {
@@ -12,6 +13,8 @@ function Login() {
     username: 'minhnhut2',
     password: '1'
   })
+
+  const [onload, setOnLoad] = useState(false)
 
 
   const {login} = useContext(UserContext)
@@ -26,22 +29,26 @@ function Login() {
   const handleLogin = async (event) => {
     event.preventDefault();
     // Gọi Api Login
+    setOnLoad(true)
     const respone = await loginApi(formData.username, formData.password);
     if (respone.status === 200) {
       login(respone.data);
+      setOnLoad(false)
       Swal.fire({
         title: 'Đăng nhập thành công',
-        text: `Chào bạn ${respone.fullName}`,
+        text: `Chào bạn ${respone.data.fullName}`,
         icon: 'success'
       }).then( () => {
         handleNavigate(respone.data.roleNames)
       }
-      )
+      ).finally(() => {
+        setOnLoad(false)
+      })
     }
     else {
       Swal.fire({
-        title: respone.getmessage,
-        text: `Mã lỗi : ${respone.code}`,
+        title: respone.data.message,
+        text: `Mã lỗi : ${respone.data.code}`,
         icon: 'error'
       })
     }
@@ -52,6 +59,12 @@ function Login() {
 
   return (
     <>
+
+{onload &&  <div className="my-loader-wrapper">
+        <div className="my-loader">
+        <RingLoader color="#36d7b7" size={200}/>
+      </div>
+       </div>}
     <div className="login-page">
       <div className="container d-flex align-items-center position-relative py-5">
         <div className="card shadow-sm w-100 rounded overflow-hidden bg-none">

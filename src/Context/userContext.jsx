@@ -6,19 +6,19 @@ const UserContext = createContext()
 
 export const UserProvider = ({children}) => {
 
-    const [user,setUser] = useState(
-        JSON.parse(sessionStorage.getItem('user'))
+    const [token,setToken] = useState(
+        JSON.parse(sessionStorage.getItem('token'))
     )
 
 
     useEffect(() => {
-            setUser(sessionStorage.getItem('user'))
-    },[user])
+            setToken(sessionStorage.getItem('token'))
+    },[token])
 
     
-    const login = (userData) => {
-        setUser(userData)
-           sessionStorage.setItem('user',JSON.stringify(userData))
+    const login = (tokenData) => {
+        setToken(tokenData)
+           sessionStorage.setItem('token',JSON.stringify(tokenData.token))
     }
 
     const logout = async  () =>{
@@ -35,12 +35,12 @@ export const UserProvider = ({children}) => {
             //     navi("/login")
             // }
         )
-        sessionStorage.removeItem('user')
-        setUser(null)
+        sessionStorage.removeItem('token')
+        setToken(null)
     }
 
     return (
-    <UserContext.Provider value={{ user, login, logout}}>
+    <UserContext.Provider value={{ token, login, logout}}>
             {children}
     </UserContext.Provider>
     )

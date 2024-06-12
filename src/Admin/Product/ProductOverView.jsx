@@ -152,7 +152,7 @@ function ProductOverView() {
                 });
               }}
             >
-              {hasCreate ? "Ẩn Form Tạo User" : "Hiện Form Tạo User"}
+              {hasCreate ? "Ẩn Form Sản phẩm" : "Hiện Form Sản phẩm"}
             </button>
           </div>
         </div>

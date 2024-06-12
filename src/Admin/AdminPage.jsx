@@ -55,7 +55,6 @@ function AdminPage() {
               </span>
             </div>
           </div> : ''}
-
           <div className="content">
             <Outlet/> 
           </div>

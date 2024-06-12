@@ -1,6 +1,5 @@
 import Home from "../Home"
 import AdminPage from "../Admin/AdminPage"
-import userPage from "../User/UserPage"
 import Login from "../Account/Login/Login"
 import PageNotFound from "./NotFound/PageNotFound"
 import AdminHome from "../Admin/Home/AdminHome"
@@ -12,7 +11,6 @@ import ProductOverView from "../Admin/Product/ProductOverView"
 const publicRoutes = [
     { path: "/" , component: Home},
     { path: "/login" , component: Login},
-    { path: "/user" , component: userPage}
 ]
 
 // Private Route

@@ -2,14 +2,21 @@ import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import { RingLoader } from "react-spinners";
 import { createProduct, updateProduct } from "../../../Data/Product/ProductApi";
+import {getAllCategory} from '../../../Data/Category/Category.js'
 
 function CreateProduct({ refresh, isUpdate, detail }) {
   const [product, setProduct] = useState({
     productName: "",
     productPrice: 0,
     productDes: "",
-    categoryId: "1",
+    categoryId : ""
   });
+
+  const [categories, setCategories] = useState([])
+
+  useEffect(() => {
+      getAllCategory().then((res) => setCategories(res));
+  },[])
 
   useEffect(() => {
     if (isUpdate && detail) {
@@ -126,13 +133,13 @@ function CreateProduct({ refresh, isUpdate, detail }) {
       </div>
 
       <div className="form-group">
-        <label htmlFor="password" className="form-label">
+        <label htmlFor="price" className="form-label">
           Giá
         </label>
         <input
-          type="text"
+          type="number"
           className="form-control"
-          id="password"
+          id="price"
           value={product.productPrice}
           onChange={(e) =>
             setProduct({
@@ -166,11 +173,13 @@ function CreateProduct({ refresh, isUpdate, detail }) {
       <div className="my-2">
         <label htmlFor="">Thể loại</label>
         <br />
-        <select value={product.categoryId} onChange={handleChange}>
-          <option value="1">Bàn</option>
-          <option value="2">Ghế</option>
+        <select value={product.categoryId} onChange={handleChange} className="form-control my-2">
+            {categories.map((category) => {
+              return (
+                <option value={category.categoryId}>{category.categoryName}</option>
+              )
+            })}
         </select>
-        <p>Selected option: {product.categoryId}</p>
       </div>
 
       <div className="d-flex justify-content-end">
