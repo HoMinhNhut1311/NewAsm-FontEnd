@@ -5,8 +5,10 @@ import {
   deleteProduct,
   findByProductId,
   getPageProduct,
+  getProductsByProductNameContaining,
 } from "../../Data/Product/ProductApi";
 import CreateProduct from "./Form/CreateProduct";
+import ProductSearch from "./Search/ProductSearch";
 
 const PAGE_SIZE = 5;
 
@@ -24,6 +26,7 @@ function ProductOverView() {
     productDes: "",
     categoryId: "1",
   });
+  const [keyWord, setKeyWord] = useState("");
   const setDataPage = async (size, number, category) => {
     setOnLoad(true);
     const response = await getPageProduct(size, number, category);
@@ -32,6 +35,12 @@ function ProductOverView() {
     setOnLoad(false);
   };
 
+  const search = async(productName)=>{
+    setOnLoad(true);
+    const response = await getProductsByProductNameContaining(productName);
+    setData(response);
+    setOnLoad(false);
+  }
   const refresh = async () => {
     console.log("Cập nhật lại trang");
     setOnLoad(true);
@@ -58,9 +67,13 @@ function ProductOverView() {
 
   // Bắt sự kiện thay đổi Page hoặc RoleId
   useEffect(() => {
-    setDataPage(PAGE_SIZE, pagePresent, 0);
-    console.log("Cập nhật Data Page");
-  }, [pagePresent]);
+    if (keyWord == "") {
+      setDataPage(PAGE_SIZE, pagePresent, 0);
+      console.log("Cập nhật Data Page");
+    } else {
+      search(keyWord)
+    }
+  }, [pagePresent, keyWord]);
 
   const handleRemove = (idProd) => {
     deleteProduct(idProd).then((res) => {
@@ -131,12 +144,12 @@ function ProductOverView() {
                 setHasCreate((prev) => !prev);
                 setIsUpdate(false);
                 setDetail({
-                    productId: "",
-                    productName: "",
-                    productPrice: 0,
-                    productDes: "",
-                    categoryId: "1",
-                  });
+                  productId: "",
+                  productName: "",
+                  productPrice: 0,
+                  productDes: "",
+                  categoryId: "1",
+                });
               }}
             >
               {hasCreate ? "Ẩn Form Tạo User" : "Hiện Form Tạo User"}
@@ -151,6 +164,10 @@ function ProductOverView() {
             detail={detail}
           />
         )}
+
+        <div style={{ width: "30%", margin: "auto", float: "right" }}>
+          <ProductSearch key={1} setKeyWord={setKeyWord} keyWord={keyWord} />
+        </div>
         <div className="col-12">
           <table className="table table-hover text-center">
             <thead>

@@ -6,7 +6,13 @@ export const getPageProduct = async (size, number, category) => {
   );
   return response.data;
 };
-
+export const getAllProduct = async(size,number)=>{
+  const response = await request.get(
+    `product?page=${number}&&size=${size}`
+  );
+  console.log(response);
+  return response.data;
+}
 export const createProduct = async (product) => {
   const response = await request.post(`product`, product);
   return response;
@@ -24,3 +30,7 @@ export const deleteProduct = async (id) => {
   const response = await intance.delete(`product/${id}`);
   return response;
 };
+export const getProductsByProductNameContaining = async (name) => {
+  const response = await request.get(`product/productName/${name}`);
+  return response.data;
+}
