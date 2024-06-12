@@ -6,12 +6,12 @@
 //   const [category, setCategory] = useState("");
 //   const [keySearch, setKeySearch] = useState("");
 //   const [temp, setTemp] = useState("");
-//   const [listProduct, setListProduct] = useState<Product[]>([]);
+//   const [listProduct, setListProduct] = useState([]);
 //   const search = (e) => {
 //     e.preventDefault();
-//     searchProduct(keySearch).then(product=>
-//         setListProduct(product)
-//     )
+//     // searchProduct(keySearch).then(product=>
+//     //     setListProduct(product)
+//     // )
 //   };
 //   return (
 //     <>

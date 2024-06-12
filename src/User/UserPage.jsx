@@ -1,15 +1,19 @@
-
-
-
-
-function userPage() {
-    
-    return (  
-        <div className='bg-white'>
-            <h2>Đây là trang user</h2>
+import Footer from "./Layout/Footer";
+import Header from "./Layout/Header";
+import '/public/css/libs.bundle.css';
+import '/public/css/theme.bundle.css'
+import '/public/css/customUser.css'
+import { Outlet } from "react-router-dom";
+function UserPage() {
+  return (
+    <>
+      <Header />
+      <div>
+        <Outlet/>
       </div>
-      
-    );
+      <Footer />
+    </>
+  );
 }
 
-export default userPage;
+export default UserPage;

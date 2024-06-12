@@ -1,12 +1,9 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Offcanvas } from "react-bootstrap";
-import { useAuth } from "../../../contexts/AuthContext";
-import { getCart } from "../../../api/CartAPI";
-import ShoppingCart from "./components/ShoppingCart";
-import { useDetailCart } from "../../../contexts/DetailCartContext";
-import { useCart } from "../../../contexts/CartContext";
-import SearchProd from "./components/SearchProd";
+import { CartContext } from "../../Context/cartContext";
+import UserContext from "../../Context/userContext";
+import ShoppingCart from "./Cart/ShoppingCart";
 
 const buttonStyle = {
   display: "flex",
@@ -14,38 +11,26 @@ const buttonStyle = {
   justifyContent: "center",
   height: "50px",
 };
-function Header (){
+function Header() {
   const [showCart, setShowCart] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
+  const { user } = useContext(UserContext);
+  const { cart } = useContext(CartContext);
   const [total, setTotal] = useState(0);
-  const { cart, setCart } = useCart();
-  const { isLoggedIn } = useAuth();
-  const { detailCart, setDetailCart } = useDetailCart();
-  const { auth } = useAuth();
-  useEffect(() => {
-    if (auth) {
-      getCart(auth?.userName).then((cart) => {
-        setCart(cart);
-        if (cart) {
-          setDetailCart(cart?.detailCart);
-        }
-      });
-    }
-  }, [detailCart, cart]);
-  useEffect(() => {
-    if (detailCart) {
-      const sum = detailCart.reduce(
-        (acc, item) => acc + item.price * item.quantity,
-        0
-      );
-      setTotal(sum);
-    }
-  }, [detailCart]);
 
   const handleShowCart = () => setShowCart(true);
   const handleCloseCart = () => setShowCart(false);
   const handleShowSearch = () => setShowSearch(true);
   const handleCloseSearch = () => setShowSearch(false);
+  useEffect(() => {
+    if (cart) {
+      const sum = cart.reduce(
+        (acc, item) => acc + item.productPrice * item.quantity,
+        0
+      );
+      setTotal(sum);
+    }
+  },[cart]);
   return (
     <div>
       <Fragment>
@@ -83,14 +68,9 @@ function Header (){
                     Về chúng tôi
                   </Link>
                 </li>
-                {/* <li className="nav-item dropdown">
-                  <a className="nav-link"  href="#">
-                    Blog
-                  </a>
-                </li> */}
                 <li className="nav-item">
-                <Link to={`/user/blog`} className="nav-link">
-                   Tài liệu
+                  <Link to={`/user/blog`} className="nav-link">
+                    Tài liệu
                   </Link>
                 </li>
               </ul>
@@ -106,7 +86,7 @@ function Header (){
                   </a>
                 </li>
                 <li className="nav-item ms-lg-n4">
-                  {isLoggedIn ? (
+                  {user ? (
                     <Link to={"/user/account-orders"}>
                       <a className="nav-link">
                         <i className="fe fe-user"></i>
@@ -121,7 +101,7 @@ function Header (){
                   )}
                 </li>
                 <li className="nav-item ms-lg-n4">
-                  {isLoggedIn ? (
+                  {user ? (
                     <Link to={"/user/account-wishlist"}>
                       <a className="nav-link">
                         <i className="fe fe-heart"></i>
@@ -142,7 +122,7 @@ function Header (){
                     href="#modalShoppingCart"
                     onClick={handleShowCart}
                   >
-                    <span data-cart-items={detailCart.length}>
+                    <span data-cart-items={cart.length}>
                       <i className="fe fe-shopping-cart"></i>
                     </span>
                   </a>
@@ -155,8 +135,8 @@ function Header (){
               >
                 <Offcanvas.Header closeButton>
                   <Offcanvas.Title>
-                    {isLoggedIn ? (
-                      <div> Giỏ hàng của bạn ({detailCart.length})</div>
+                    {user ? (
+                      <div> Giỏ hàng của bạn ({cart.length})</div>
                     ) : (
                       <div>Vui lòng đăng nhập trước</div>
                     )}
@@ -164,31 +144,30 @@ function Header (){
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                   <ul className="list-group list-group-lg list-group-flush">
-                    {detailCart &&
-                      detailCart.map((item) => (
-                        <ShoppingCart
-                          key={item.detailCartID}
-                          detailCarts={item}
-                        />
+                    {cart &&
+                      cart.map((item) => (
+                        <ShoppingCart key={item.productId} detailCarts={item} />
                       ))}
                   </ul>
                 </Offcanvas.Body>
-                <div className="offcanvas-footer justify-between lh-fixed fs-sm bg-light mt-auto w-100">
-                  <strong>Tổng tiền</strong>
-                  <strong className="ms-auto">${total}</strong>
-                </div>
+                {cart.length > 0 && (
+                  <div className="offcanvas-footer justify-between lh-fixed fs-sm bg-light mt-auto w-100">
+                    <strong>Tổng tiền</strong>
+                    <strong className="ms-auto">${total}</strong>
+                  </div>
+                )}
                 <div className="offcanvas-body">
-                  {detailCart.length > 0 && detailCart && (
+                  {cart.length > 0 && cart && (
                     <>
                       <Link
                         className="btn w-100 btn-dark"
-                        to="/user/checkout"
+                        to="checkout"
                         style={buttonStyle}
                       >
                         <span className="">Thanh toán</span>
                       </Link>
                       <Link
-                        to="/user/cart"
+                        to="cart"
                         className="btn w-100 btn-outline-dark"
                         style={buttonStyle}
                       >
@@ -210,9 +189,7 @@ function Header (){
                     </div>
                   </Offcanvas.Title>
                 </Offcanvas.Header>
-                <Offcanvas.Body>
-                  <SearchProd />
-                </Offcanvas.Body>
+                <Offcanvas.Body>{/* <SearchProd /> */}</Offcanvas.Body>
               </Offcanvas>
             </div>
           </div>

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { getAllProduct } from "../../Data/Product/ProductApi";
-import Item from "./Item/Item";
+import { useParams } from "react-router-dom";
+import Detail from "./DetailProductComponent/Detail";
 
-function HomePage() {
+function DetailProduct() {
+  const { productId } = useParams();
+  const [product, setProduct] = useState({});
   const [products, setProducts] = useState([
     {
       productName: "Product 1",
@@ -62,39 +63,47 @@ function HomePage() {
       categoryName: "Category 8",
     },
   ]);
+  useEffect(() => {
+    if (productId) {
+      //   findByProductId(productId.toString())
+      //     .then((data: product | null) => {
+      //       setProduct(data);
+      //     })
+      //     .catch((error) => {
+      //       console.error("Error fetching product:", error);
+      //     });
+      setProduct(products.find((p) => p.productId === productId));
+    }
+  }, [productId]);
 
   return (
     <div>
-      <section className="py-12">
+      <nav className="py-5">
         <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-12 col-md-10 col-lg-8 col-xl-6">
-              <h2 className="mb-4 text-center">Top Sellers</h2>
-            </div>
-          </div>
-          <div className="tab-content">
-            <div className="tab-pane fade show active" id="topSellersTab">
-              <div className="row"></div>
-            </div>
-          </div>
           <div className="row">
-            {products.map((product) => (
-              <Item key={product.productId} product={product} />
-            ))}
             <div className="col-12">
-              <div className="mt-7 text-center">
-                <Link to={"/user/shop"}>
-                  <a className="link-underline" href="#">
-                    Tìm hiểu thêm
+              <ol className="breadcrumb mb-0 fs-xs text-gray-400">
+                <li className="breadcrumb-item">
+                  <a className="text-gray-400" href="index.html">
+                    Home
                   </a>
-                </Link>
-              </div>
+                </li>
+                <li className="breadcrumb-item">
+                  <a className="text-gray-400" href="shop.html">
+                    {product?.categoryName}
+                  </a>
+                </li>
+                <li className="breadcrumb-item active">
+                  {product?.productName}
+                </li>
+              </ol>
             </div>
           </div>
         </div>
-      </section>
+      </nav>
+      {product && <Detail product={product} key={product.productId} />}
     </div>
   );
 }
 
-export default HomePage;
+export default DetailProduct;
