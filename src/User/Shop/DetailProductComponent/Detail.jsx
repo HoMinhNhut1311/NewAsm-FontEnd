@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 
 function Detail({ product }) {
   const [stock, setStock] = useState(1);
-  const { cart, addToCart,updateQuantity } = useContext(CartContext);
+  const { cart, addToCart, updateQuantity } = useContext(CartContext);
   const decrease = () => {
     if (stock !== 1) setStock(stock - 1);
   };
@@ -16,22 +16,22 @@ function Detail({ product }) {
     e.preventDefault();
     let prod = cart.find((c) => c.productId === product.productId);
     if (prod) {
-      updateCart(prod,prod.quantity + stock)
+      updateCart(prod, prod.quantity + stock);
     } else {
-      saveCart(product,stock);
+      saveCart(product, stock);
     }
   };
 
-  const saveCart = (p,s) => {
+  const saveCart = (p, s) => {
     Swal.fire({
       title: "Success",
       text: `Đã thêm sản phẩm vào giỏ hàng`,
       icon: "success",
     }).then(() => {
-      addToCart(p,s);
+      addToCart(p, s);
     });
   };
-  const updateCart = (p,q) => {
+  const updateCart = (p, q) => {
     Swal.fire({
       title: "Success",
       text: `Đã thêm sản phẩm vào giỏ hàng`,
@@ -39,7 +39,7 @@ function Detail({ product }) {
     }).then(() => {
       updateQuantity(p, q);
     });
-  }
+  };
   return (
     <section>
       <div className="container">
@@ -68,38 +68,38 @@ function Detail({ product }) {
                       >
                         <a
                           href="#"
-                          // data-bigpicture={{ imgSrc: product.images[0].url }}
+                          data-bigpicture={{ imgSrc: product.mediaFilePath }}
                           className="flickity-cell is-selected"
                           style={{ transform: "translateX(0%)", opacity: "1" }}
                         >
                           <img
-                            // src={product.images[1].url}
+                            src={product.mediaFilePath}
                             alt={product.productName}
                             className="card-img-top"
                           />
                         </a>
                         <a
                           href="#"
-                          //   data-bigpicture={{ imgSrc: product.images[0].url }}
+                          data-bigpicture={{ imgSrc: product.mediaFilePath }}
                           className="flickity-cell"
                           aria-hidden="true"
                           style={{ transform: "translateX(0%)", opacity: "0" }}
                         >
                           <img
-                            // src={"../" + product.images[1].url}
+                            src={"../" + product.mediaFilePath}
                             alt="..."
                             className="card-img-top"
                           />
                         </a>
                         <a
                           href="#"
-                          //   data-bigpicture={{ imgSrc: product.images[0].url }}
+                          data-bigpicture={{ imgSrc: product.mediaFilePath }}
                           className="flickity-cell"
                           aria-hidden="true"
                           style={{ transform: "translateX(0%)", opacity: "0" }}
                         >
                           <img
-                            // src={product.images[1].url}
+                            src={product.mediaFilePath}
                             alt="..."
                             className="card-img-top"
                           />

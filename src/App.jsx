@@ -45,7 +45,7 @@ const createRoutesPrivate = (routes) => {
         <Route key={index} path={route.path} element={route.component ? 
           <ProtectedRoute>
             <route.component />
-          // </ProtectedRoute>
+           </ProtectedRoute>
         : null}>
           {createRoutesPrivate(route.childrenRoute)}
         </Route>
@@ -55,7 +55,7 @@ const createRoutesPrivate = (routes) => {
         <Route key={index} path={route.path} element={route.component ? 
           <ProtectedRoute>
           <route.component />
-        // </ProtectedRoute>
+         </ProtectedRoute>
           : null} />
       );
     }

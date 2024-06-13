@@ -14,7 +14,7 @@ const buttonStyle = {
 function Header() {
   const [showCart, setShowCart] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
-  const { user } = useContext(UserContext);
+  const { token, logout } = useContext(UserContext);
   const { cart } = useContext(CartContext);
   const [total, setTotal] = useState(0);
 
@@ -30,7 +30,7 @@ function Header() {
       );
       setTotal(sum);
     }
-  },[cart]);
+  }, [cart]);
   return (
     <div>
       <Fragment>
@@ -82,36 +82,76 @@ function Header() {
                     href="#modalSearch"
                     onClick={handleShowSearch}
                   >
-                    <i className="fe fe-search"></i>
+                    <i className="bi bi-search icon-large"></i>
                   </a>
                 </li>
                 <li className="nav-item ms-lg-n4">
-                  {user ? (
-                    <Link to={"/user/account-orders"}>
-                      <a className="nav-link">
-                        <i className="fe fe-user"></i>
-                      </a>
-                    </Link>
+                  {token ? (
+                    <div className="top-account">
+                      <Link to={`/user/detail`}>
+                        <a className="nav-link">
+                          <i className="bi bi-person-fill icon-large"></i>
+                        </a>
+                      </Link>
+                      <div
+                        className="top-dropdown border border-2"
+                        style={{
+                          padding: "5px 10px 15px 10px",
+                          marginTop: "-110px",
+                          width: "16%",
+                        }}
+                      >
+                        <div>
+                          <button
+                            style={{ marginTop: "5px" }}
+                            type="button"
+                            className="button-facebook"
+                          >
+                            <Link to={`/user/detail`} className="text-light">
+                              <span>Thông tin cá nhân</span>
+                            </Link>
+                          </button>
+                          <button
+                            style={{ marginTop: "5px" }}
+                            type="button"
+                            className="button-facebook"
+                          >
+                            <Link to={`/user/detail/change-password`} className="text-light">
+                              <span>Đổi mật khẩu</span>
+                            </Link>
+                          </button>
+                          <button
+                            style={{ marginTop: "5px" }}
+                            type="button"
+                            className="button-facebook center_center"
+                            onClick={logout}
+                          >
+                            <span className="icon_facebook"></span>
+                            <span className="text-light">Đăng xuất</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
                   ) : (
                     <Link to={"./login"}>
                       <a className="nav-link">
-                        <i className="fe fe-user"></i>
+                        <i className="bi bi-person-fill icon-large"></i>
                       </a>
                     </Link>
                   )}
                 </li>
                 <li className="nav-item ms-lg-n4">
-                  {user ? (
+                  {token ? (
                     <Link to={"/user/account-wishlist"}>
                       <a className="nav-link">
-                        <i className="fe fe-heart"></i>
+                        <i className="bi bi-receipt icon-large"></i>
                       </a>{" "}
                     </Link>
                   ) : (
                     <Link to={"./login"}>
                       {" "}
                       <a className="nav-link">
-                        <i className="fe fe-heart"></i>
+                        <i className="bi bi-receipt icon-large"></i>
                       </a>
                     </Link>
                   )}
@@ -123,7 +163,7 @@ function Header() {
                     onClick={handleShowCart}
                   >
                     <span data-cart-items={cart.length}>
-                      <i className="fe fe-shopping-cart"></i>
+                      <i className="bi bi-cart-fill icon-large"></i>
                     </span>
                   </a>
                 </li>
@@ -135,7 +175,7 @@ function Header() {
               >
                 <Offcanvas.Header closeButton>
                   <Offcanvas.Title>
-                    {user ? (
+                    {token ? (
                       <div> Giỏ hàng của bạn ({cart.length})</div>
                     ) : (
                       <div>Vui lòng đăng nhập trước</div>

@@ -4,13 +4,13 @@ function Item({ details }) {
     <li className="list-group-item">
       <div className="row align-items-center">
         <div className="col-4">
-          {/* <a href="#">
+          <a href="#">
             <img
-              src={product?.images[0]?.url}
+              src={product?.mediaFilePath}
               alt={product?.productName}
               className="img-fluid"
             />
-          </a> */}
+          </a>
         </div>
         <div className="col">
           <p className="mb-4 fs-sm fw-bold">

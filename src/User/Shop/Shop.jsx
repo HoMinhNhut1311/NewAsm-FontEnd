@@ -1,61 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Products from "./Item/Products";
+import { getPageProduct } from "../../Data/Product/ProductApi";
+import { getAllCategory } from "../../Data/Category/Category";
 
 function Shop() {
-  const [products, setProducts] = useState([
-    {
-      productName: "Product 1",
-      productId: "1",
-      productPrice: "100",
-      productDes: "Description 1",
-      categoryName: "Category 1",
-    },
-    {
-      productName: "Product 2",
-      productId: "2",
-      productPrice: "150",
-      productDes: "Description 2",
-      categoryName: "Category 2",
-    },
-    {
-      productName: "Product 3",
-      productId: "3",
-      productPrice: "200",
-      productDes: "Description 3",
-      categoryName: "Category 3",
-    },
-    {
-      productName: "Product 4",
-      productId: "4",
-      productPrice: "250",
-      productDes: "Description 4",
-      categoryName: "Category 4",
-    },
-    {
-      productName: "Product 5",
-      productId: "5",
-      productPrice: "300",
-      productDes: "Description 5",
-      categoryName: "Category 5",
-    },
-    {
-      productName: "Product 6",
-      productId: "6",
-      productPrice: "350",
-      productDes: "Description 6",
-      categoryName: "Category 6",
-    },
-  ]);
-
+  const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("Tất cả sản phẩm");
   const [selectedFilter, setSelectedFilter] = useState("Lọc theo giá");
-  
-  const categories = [
-    "Tất cả sản phẩm",
-    "Category 1",
-    "Category 2",
-    // Add your categories here
-  ];
+  const [categories, setCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProductsAndCategories = async () => {
+      try {
+        const productResponse = await getPageProduct(6, 0, 0);
+        setProducts(productResponse.content);
+        const categoryResponse = await getAllCategory();
+        setCategories(categoryResponse);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProductsAndCategories();
+  }, []);
 
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
@@ -66,9 +34,12 @@ function Shop() {
   };
 
   const filteredProducts = products
-    .filter((product) =>
-      selectedCategory === "Tất cả sản phẩm" ? true : product.categoryName === selectedCategory
-    )
+    .filter((product) => {
+      if (selectedCategory === "Tất cả sản phẩm") {
+        return true;
+      }
+      return product.categoryName === selectedCategory;
+    })
     .sort((a, b) => {
       if (selectedFilter === "Giá từ cao đến thấp") {
         return b.productPrice - a.productPrice;
@@ -82,6 +53,20 @@ function Shop() {
         return 0;
       }
     });
+
+  if (isLoading) {
+    return (
+      <div className="loader">
+        <div className="wrapper">
+          <div className="circle"></div>
+          <div className="line-1"></div>
+          <div className="line-2"></div>
+          <div className="line-3"></div>
+          <div className="line-4"></div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <section className="py-11">
@@ -106,9 +91,10 @@ function Shop() {
                   value={selectedCategory}
                   onChange={handleCategoryChange}
                 >
-                  {categories.map((category, index) => (
-                    <option key={index} value={category}>
-                      {category}
+                  <option value="Tất cả sản phẩm">Tất cả sản phẩm</option>
+                  {categories.map((category) => (
+                    <option key={category.categoryId} value={category.categoryName}>
+                      {category.categoryName}
                     </option>
                   ))}
                 </select>
@@ -120,10 +106,18 @@ function Shop() {
                   onChange={handleFilterChange}
                 >
                   <option value="Lọc theo giá">Lọc theo giá</option>
-                  <option value="Giá từ cao đến thấp">Giá từ cao đến thấp</option>
-                  <option value="Giá từ thấp đến cao">Giá từ thấp đến cao</option>
-                  <option value="Tên sản phẩm từ a - z">Tên sản phẩm từ a - z</option>
-                  <option value="Tên sản phẩm từ z - a">Tên sản phẩm từ z - a</option>
+                  <option value="Giá từ cao đến thấp">
+                    Giá từ cao đến thấp
+                  </option>
+                  <option value="Giá từ thấp đến cao">
+                    Giá từ thấp đến cao
+                  </option>
+                  <option value="Tên sản phẩm từ a - z">
+                    Tên sản phẩm từ a - z
+                  </option>
+                  <option value="Tên sản phẩm từ z - a">
+                    Tên sản phẩm từ z - a
+                  </option>
                 </select>
               </div>
             </div>

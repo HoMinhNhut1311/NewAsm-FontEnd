@@ -28,14 +28,14 @@ function Item({ product }) {
   }
   return (
     <div className="cardd m-2 ms-5">
-      <Link to={`user/furniture/${product.productId}`}>
+      <Link to={`shop/furniture/${product.productId}`}>
         <div className="card-img">
           {" "}
-          {/* <img
+          <img
             className="card-img-top card-img-back"
-            src={images[0].url}
+            src={product.mediaFilePath}
             alt={product.productName}
-          /> */}
+          />
         </div>
         <div className="card-title">{product.productName}</div>
       </Link>

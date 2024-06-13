@@ -14,6 +14,8 @@ import HomePage from "../User/Home/HomePage";
 import Shop from "../User/Shop/Shop";
 import DetailProduct from "../User/Shop/DetailProduct";
 import Checkout from "../User/Checkout/Checkout";
+import UserForm from "../User/Personal/UserForm";
+import ChangePassword from "../User/Personal/ChangePass";
 
 // Public Route
 const publicRoutes = [
@@ -86,20 +88,33 @@ const privateRoutes = [
       },
       {
         path: "shop",
-        childrenRoute:[
+        childrenRoute: [
           {
             path: "",
             component: Shop,
           },
           {
             path: "furniture/:productId",
-            component: DetailProduct
-          }
-        ]
+            component: DetailProduct,
+          },
+        ],
       },
       {
         path: "checkout",
-        component: Checkout
+        component: Checkout,
+      },
+      {
+        path: "detail",
+        childrenRoute: [
+          {
+            path: "",
+            component: UserForm,
+          },
+          {
+            path: "change-password",
+            component: ChangePassword,
+          },
+        ],
       },
     ],
   },

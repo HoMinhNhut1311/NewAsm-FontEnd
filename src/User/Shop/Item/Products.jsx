@@ -5,7 +5,7 @@ import { CartContext } from "../../../Context/cartContext";
 import Swal from "sweetalert2";
 
 function Products({ product }) {
-  const { user } = useContext(UserContext);
+  const { token } = useContext(UserContext);
   const { cart, addToCart, updateQuantity } = useContext(CartContext);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -63,13 +63,22 @@ function Products({ product }) {
     <div className="col-6 col-md-4">
       <div className="cardd mb-7 ms-7">
         <div className="card-img">
-          <Link to={`shop/furniture/${product.productId}`}>
+          <Link to={`furniture/${product.productId}`}>
             <a className="card-img-hover" href="product.html">
-              {/* Add image elements here */}
+            <img
+                className="card-img-top card-img-back"
+                src={product.mediaFilePath}
+                alt={product.productName}
+              />
+              <img
+                className="card-img-top card-img-front"
+                src={product.mediaFilePath}
+                alt={product.productName}
+              />
             </a>
           </Link>
           <div className="card-actions">
-            <Link to={`/user/shop/furniture/${product.productId}`}>
+            <Link to={`furniture/${product.productId}`}>
               <span className="card-action">
                 <button
                   className="btn btn-xs btn-circle btn-white-primary"
@@ -80,7 +89,7 @@ function Products({ product }) {
               </span>
             </Link>
             <span className="card-action">
-              {user == null ? (
+              {token == null ? (
                 <button
                   className="btn btn-xs btn-circle btn-white-primary"
                   title="cart"
@@ -98,7 +107,7 @@ function Products({ product }) {
               )}
             </span>
             <span className="card-action">
-              {user == null ? (
+              {token == null ? (
                 <button
                   className="btn btn-xs btn-circle btn-white-primary"
                   title="wishlist"

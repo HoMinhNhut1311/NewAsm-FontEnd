@@ -31,12 +31,12 @@ function ShoppingCart({ detailCarts }) {
         <div className="row align-items-center">
           <div className="col-4">
             <a href="#">
-              {/* <img
+              <img
                 className="img-fluid"
                 style={{ width: "100%" }}
-                src={product.images[0]?.url}
+                src={product.mediaFilePath}
                 alt={product.productName || "Product image"}
-              /> */}
+              />
             </a>
           </div>
           <div className="col-8">

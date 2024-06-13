@@ -1,15 +1,20 @@
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../../Context/cartContext";
-import UserContext from "../../../Context/userContext";
 import Item from "./Item/Item";
 import { saveCart } from "../../../Data/Cart/CartApi";
 import Swal from "sweetalert2";
+import UserContext from "../../../Context/userContext";
+import { parseJwt } from "../../../Utils/Jwt";
+import { selectById } from "../../../Data/User/userApi";
 
 function PlaceOrder() {
   const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const { cart } = useContext(CartContext);
-  const { user } = useContext(UserContext);
+  const {token} = useContext(UserContext);
+  const [user, setUser] = useState({});
+  const userId = parseJwt(token).userId;
+
   useEffect(() => {
     if (cart && cart.length > 0) {
       // Guard against empty or undefined cart
@@ -21,23 +26,22 @@ function PlaceOrder() {
     } else {
       setTotal(0);
     }
+    selectById(userId).then((res) => {
+      setUser(res);
+    });
   }, [cart]);
 
   const handlePlaceOrder = () => {
     setIsLoading(true);
     const currentDate = new Date().toISOString().split("T")[0];
     const productIds = cart.map((item) => item.productId);
-    const data =
-      '{"userId":"239b6125-39bb-435b-9b58-2a3473f44d11","profileId":"2a965978-10e2-460a-9e30-19c0b6b4d144","userName":"user","password":"1","fullName":null,"sex":false,"email":null,"phone":null,"birth":null,"roleNames":["USER"],"mediaFile":null}';
-    const parts = data.split(",");
-    const userNamePart = parts[2];
-    const userName = userNamePart.split(":")[1].replace(/"/g, "").trim();
+    
     setTimeout(() => {
       setIsLoading(false);
       const order = {
         localDate: currentDate,
         status: false,
-        username: userName,
+        username: user.userName,
         productIds: productIds,
       };
       Swal.fire({
