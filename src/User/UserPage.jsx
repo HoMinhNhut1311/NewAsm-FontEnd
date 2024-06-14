@@ -1,16 +1,17 @@
+import useDynamicCSS from "../Utils/useDynamicCss";
 import Footer from "./Layout/Footer";
 import Header from "./Layout/Header";
-import '/public/css/libs.bundle.css';
-import '/public/css/theme.bundle.css'
-import '/public/css/customUser.css'
-import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Outlet } from "react-router-dom";
 function UserPage() {
+  useDynamicCSS("/public/css/libs.bundle.css");
+  useDynamicCSS("/public/css/theme.bundle.css");
+  useDynamicCSS("/public/css/customUser.css");
+  useDynamicCSS("bootstrap-icons/font/bootstrap-icons.css");
   return (
     <>
       <Header />
       <div>
-        <Outlet/>
+        <Outlet />
       </div>
       <Footer />
     </>
