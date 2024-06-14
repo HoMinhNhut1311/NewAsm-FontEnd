@@ -1,19 +1,22 @@
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../../Context/userContext";
-import { decodeFromBase64, parseJwt } from "../../Utils/Jwt";
+import { changePass } from "../../Data/User/userApi";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 function ChangePassword() {
   const [captcha, setCaptcha] = useState("");
   const [text, setText] = useState("");
-  const { token } = useContext(UserContext);
-  const password = parseJwt(token).password;
+  const { token, setToken } = useContext(UserContext);
   const [oldPw, setOldPw] = useState("");
   const [newPw, setNewPw] = useState("");
   const [cfPw, setCfPw] = useState("");
   const [msg, setMsg] = useState("");
+  const navi = useNavigate();
+
   useEffect(() => {
     generateCaptcha();
-  }, []);
+  }, [token]);
   function randomText(length) {
     const chars =
       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -23,7 +26,11 @@ function ChangePassword() {
     }
     return result;
   }
-
+  const logout = () => {
+    navi("/login");
+    sessionStorage.removeItem("token");
+    setToken(null);
+  };
   function generateCaptcha(e) {
     if (e) {
       e.preventDefault();
@@ -65,26 +72,54 @@ function ChangePassword() {
     }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Handle submit called");
+
     if (text === captcha) {
-      const passwordFromToken = decodeFromBase64(password)
-      console.log(passwordFromToken);
-      console.log(oldPw);
-      if (oldPw !== passwordFromToken) {
-        setMsg("Mật khẩu cũ không chính xác");
-        return;
-      }
       if (newPw !== cfPw) {
         setMsg("Mật khẩu mới và mật khẩu xác nhận không khớp");
+        Swal.fire({
+          title: "Lỗi",
+          text: "Mật khẩu mới và mật khẩu xác nhận không khớp",
+          icon: "error",
+        });
         return;
+      } else {
+        try {
+          const response = await changePass(
+            { pwOld: oldPw, pwNew: newPw },
+            token
+          );
+          setMsg("Đổi mật thành công");
+          Swal.fire({
+            title: "Success",
+            text: "Đổi mật thành công, vui lòng đăng nhập lại!",
+            icon: "success",
+          });
+        } catch (error) {
+          setMsg("Đổi mật khẩu thất bại");
+          Swal.fire({
+            title: "Lỗi",
+            text: `"Đổi mật khẩu thất bại"`,
+            icon: "error",
+          });
+          console.error("Error changing password:", error);
+        }
       }
+    } else {
+      setMsg("Mã captcha không khớp");
+      Swal.fire({
+        title: "Lỗi",
+        text: "Mã captcha không khớp",
+        icon: "error",
+      });
     }
   };
   return (
     <div className="formbold-main-wrapper">
       <div className="formbold-form-container d-flex border border-2">
-        <form className="formr">
+        <form className="formr" onSubmit={handleSubmit}>
           <div className="flex-columnr">
             <label>Nhập mập khẩu cũ</label>
           </div>
@@ -196,7 +231,7 @@ function ChangePassword() {
             </button>
           </div>
           <div className="w-50"></div>
-          <button className="button-submitr" onClick={(e)=>handleSubmit(e)}>Đổi mật khẩu</button>
+          <button className="button-submitr">Đổi mật khẩu</button>
         </form>
       </div>
     </div>

@@ -74,6 +74,7 @@ export const UpdateProfile = async (
     phone: phone,
     userId: userId,
   });
+  console.log(response);
   return response.data;
 };
 
@@ -97,5 +98,16 @@ export const RemoveUserApi = async (userId) => {
 // Get Users By Role Id
 export const getUsersByRoleId = async (roleId) => {
   const response = await intance.get(`user/role/${roleId}`);
+  return response.data;
+};
+
+export const changePass = async (pw,token) => {
+  const response = await intance.post(`user/changeMyPass`, pw,{
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+  console.log(response);
   return response.data;
 };

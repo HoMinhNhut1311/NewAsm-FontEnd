@@ -74,7 +74,6 @@
   box-sizing: border-box;
 }
 body {
-  -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(17, 17, 17, 0);
   background-color: var(--bs-body-bg);
   color: var(--bs-body-color);
@@ -278,7 +277,6 @@ caption {
 }
 th {
   text-align: inherit;
-  text-align: -webkit-match-parent;
 }
 tbody,
 td,
@@ -4429,7 +4427,7 @@ fieldset:disabled .btn {
   overflow-y: visible;
   padding: 0;
 }navbar-brand
-.navbar-light .,
+.navbar-light ,
 .navbar-light .navbar-brand:focus,
 .navbar-light .navbar-brand:hover,
 .navbar-light .navbar-nav .nav-link {
@@ -14249,7 +14247,7 @@ fieldset:disabled .btn {
 .btn-group-justified > .btn:not(:first-child) {
   margin-left: -1px;
 }
-@media (max-width: -1) {
+@media (max-width: 1) {
   .btn-group-justified.btn-group-expand-xs {
     flex-direction: column;
   }
@@ -15593,7 +15591,7 @@ a.card-img-overlay:hover {
   display: block !important;
   width: 100%;
 }
-@media (max-width: -1px) {
+@media (max-width: 1px) {
   .navbar.navbar-expand-xs .navbar-collapse:before {
     content: "";
     display: block;

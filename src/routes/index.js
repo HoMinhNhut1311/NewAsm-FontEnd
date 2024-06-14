@@ -16,6 +16,8 @@ import DetailProduct from "../User/Shop/DetailProduct";
 import Checkout from "../User/Checkout/Checkout";
 import UserForm from "../User/Personal/UserForm";
 import ChangePassword from "../User/Personal/ChangePass";
+import OrderPage from "../User/Shop/OrderPage";
+import Invoice from "../User/Shop/InvoiceComponent/Invoice";
 
 // Public Route
 const publicRoutes = [
@@ -113,6 +115,14 @@ const privateRoutes = [
           {
             path: "change-password",
             component: ChangePassword,
+          },
+          {
+            path: "orderPage",
+            component: OrderPage,
+          },
+          {
+            path: "orderPage/:orderId",
+            component: Invoice,
           },
         ],
       },

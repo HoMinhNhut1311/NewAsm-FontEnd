@@ -6,18 +6,18 @@ import Swal from "sweetalert2";
 import UserContext from "../../../Context/userContext";
 import { parseJwt } from "../../../Utils/Jwt";
 import { selectById } from "../../../Data/User/userApi";
+import { useNavigate } from "react-router-dom";
 
 function PlaceOrder() {
   const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const { cart } = useContext(CartContext);
-  const {token} = useContext(UserContext);
+  const { cart, setCart, removeFromCart } = useContext(CartContext);
+  const { token } = useContext(UserContext);
   const [user, setUser] = useState({});
   const userId = parseJwt(token).userId;
-
+  const navi = useNavigate("");
   useEffect(() => {
     if (cart && cart.length > 0) {
-      // Guard against empty or undefined cart
       const sum = cart.reduce(
         (acc, item) => acc + item.productPrice * item.quantity,
         0
@@ -34,8 +34,13 @@ function PlaceOrder() {
   const handlePlaceOrder = () => {
     setIsLoading(true);
     const currentDate = new Date().toISOString().split("T")[0];
-    const productIds = cart.map((item) => item.productId);
-    
+    const productIds = [];
+
+    cart.forEach((item) => {
+      for (let i = 0; i < item.quantity; i++) {
+        productIds.push(item.productId);
+      }
+    });
     setTimeout(() => {
       setIsLoading(false);
       const order = {
@@ -45,13 +50,20 @@ function PlaceOrder() {
         productIds: productIds,
       };
       Swal.fire({
-        title: "Success",
-        text: `Đã thêm sản phẩm vào giỏ hàng`,
+        title: "Đã thêm sản phẩm vào giỏ hàng",
         icon: "success",
+        text: `Tự động chuyển sang trang chủ sau 3 giây nữa`,
+        timer: 3090,
+        timerProgressBar: true,
       }).then(() => {
         saveCart(order);
+        cart.forEach((item) => {
+          for (let i = 0; i < item.quantity; i++) {
+            removeFromCart(item.productId);
+          }
+        });
+        navi("/user");
       });
-     
     }, 2000);
   };
 

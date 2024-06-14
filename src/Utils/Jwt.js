@@ -6,14 +6,3 @@ export function parseJwt (token) {
     }).join(''));
     return JSON.parse(jsonPayload);
 }
-export function decodeFromBase64(base64) {
-    try {
-        return window.atob(base64);
-    } catch (e) {
-        console.error('Error decoding Base64:', e);
-        return null;
-    }
-}
-export function encodeToBase64(input) {
-    return window.btoa(input);
-}

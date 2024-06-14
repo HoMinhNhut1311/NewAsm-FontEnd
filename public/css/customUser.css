@@ -1362,16 +1362,6 @@ button.remove:active {
   }
 }
 
-/* form */
-
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
 
 .main {
   overflow: hidden;
@@ -2052,4 +2042,35 @@ section .content p {
 
 .btnr:hover {
   border: 1px solid #2d79f3;
+}
+
+table {
+  background: #171f57;
+  border-radius: 0.25em;
+  border-collapse: collapse;
+  margin: 1em;
+  width: 1500px;
+}
+th {
+  border-bottom: 1px solid #364043;
+  color: #E2B842;
+  font-size: 0.85em;
+  font-weight: 600;
+  padding: 0.5em 1em;
+  text-align: left;
+}
+td {
+  color: #fff;
+  font-weight: 400;
+  padding: 0.65em 1em;
+}
+.disabled td {
+  color: #4F5F64;
+}
+tbody tr {
+  margin: 20px;
+  transition: background 0.25s ease;
+}
+tbody tr:hover {
+  background: #014055;
 }

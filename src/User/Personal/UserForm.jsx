@@ -90,6 +90,7 @@ function UserForm() {
         user.phone,
         user.userId
       );
+
       if (response) {
         Swal.fire({
           title: "Cập nhật thành công!",
@@ -208,13 +209,13 @@ function UserForm() {
             </div>
             <div className="formbold-input-flex">
               <div>
-                <label htmlFor="fullname" className="formbold-form-label">
+                <label htmlFor="fullName" className="formbold-form-label">
                   Họ và tên
                 </label>
                 <input
                   type="text"
-                  name="fullname"
-                  id="fullname"
+                  name="fullName"
+                  id="fullName"
                   className="formbold-form-input"
                   value={user.fullName}
                   onChange={handleInputChange}

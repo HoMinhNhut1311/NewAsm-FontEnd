@@ -49,6 +49,7 @@ function Login() {
         text: `Mã lỗi : ${respone.data.code}`,
         icon: "error",
       });
+      setOnLoad(false);
     }
   };
 

@@ -1,9 +1,10 @@
 import { Fragment, useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Offcanvas } from "react-bootstrap";
 import { CartContext } from "../../Context/cartContext";
 import UserContext from "../../Context/userContext";
 import ShoppingCart from "./Cart/ShoppingCart";
+import Swal from "sweetalert2";
 
 const buttonStyle = {
   display: "flex",
@@ -14,10 +15,10 @@ const buttonStyle = {
 function Header() {
   const [showCart, setShowCart] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
-  const { token, logout } = useContext(UserContext);
+  const { token, setToken } = useContext(UserContext);
   const { cart } = useContext(CartContext);
   const [total, setTotal] = useState(0);
-
+  const navi = useNavigate()
   const handleShowCart = () => setShowCart(true);
   const handleCloseCart = () => setShowCart(false);
   const handleShowSearch = () => setShowSearch(true);
@@ -31,6 +32,21 @@ function Header() {
       setTotal(sum);
     }
   }, [cart]);
+  const logout = async () => {
+    await Swal.fire({
+      title: "Đăng xuất thành công",
+      text: `Tự động chuyển sang trang Đăng Nhập sau 2 giây nữa`,
+      timer: 2000,
+      timerProgressBar: true,
+      background: "#36d7b7",
+      color: "white",
+      icon: "info",
+    }).then(() => {
+      navi("/login");
+    });
+    sessionStorage.removeItem("token");
+    setToken(null);
+  };
   return (
     <div>
       <Fragment>
@@ -116,7 +132,10 @@ function Header() {
                             type="button"
                             className="button-facebook"
                           >
-                            <Link to={`/user/detail/change-password`} className="text-light">
+                            <Link
+                              to={`/user/detail/change-password`}
+                              className="text-light"
+                            >
                               <span>Đổi mật khẩu</span>
                             </Link>
                           </button>
@@ -142,7 +161,7 @@ function Header() {
                 </li>
                 <li className="nav-item ms-lg-n4">
                   {token ? (
-                    <Link to={"/user/account-wishlist"}>
+                    <Link to={"/user/detail/orderPage"}>
                       <a className="nav-link">
                         <i className="bi bi-receipt icon-large"></i>
                       </a>{" "}
