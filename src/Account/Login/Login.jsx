@@ -6,6 +6,7 @@ import "../../../public/css/custom.css";
 import { loginApi } from "../../Data/User/userApi";
 import UserContext from "../../Context/userContext";
 import { RingLoader } from "react-spinners";
+import LoginWithGoogle from "./LoginWithGoogle";
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -136,6 +137,8 @@ function Login() {
                       >
                         Login
                       </button>
+                      <LoginWithGoogle/>
+
                       <br />
                       <a className="text-sm text-paleBlue wmnLink" href="#">
                         Forgot Password?
