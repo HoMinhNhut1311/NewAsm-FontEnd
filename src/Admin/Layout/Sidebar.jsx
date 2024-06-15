@@ -1,4 +1,4 @@
-import { faChalkboardUser, faGraduationCap, faIgloo, faUsersGear, faUsersViewfinder } from "@fortawesome/free-solid-svg-icons";
+import {  faGraduationCap, faIgloo, faUsersGear, faUsersViewfinder } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import catImage from '/public/images/MyCat.jpg'
 import { Link } from "react-router-dom";

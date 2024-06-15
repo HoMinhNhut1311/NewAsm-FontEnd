@@ -3,6 +3,8 @@ import { useContext, useState } from 'react';
 import {  Outlet, useNavigate } from 'react-router-dom';
 import Header from './Layout/Header.jsx';
 import Sidebar from './Layout/Sidebar.jsx';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '/public/css/style.default.css'
 import '/public/css/custom.css'
 import UserContext from '../Context/userContext.jsx';
 
