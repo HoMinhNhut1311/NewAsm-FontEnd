@@ -5,7 +5,6 @@ function ProtectedRoute({ children }) {
     const navigate = useNavigate();
     const isAuthen = token != null;
     useEffect(() => {
-        console.log(token);
         if (!isAuthen) {
             navigate('/login');
         }

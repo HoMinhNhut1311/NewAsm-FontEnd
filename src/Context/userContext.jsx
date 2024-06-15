@@ -11,7 +11,6 @@ export const UserProvider = ({ children }) => {
   }, [token]);
 
   const login = (tokenData) => {
-    console.log(tokenData);
     setToken(tokenData);
     sessionStorage.setItem("token", JSON.stringify(tokenData.token));
   };
