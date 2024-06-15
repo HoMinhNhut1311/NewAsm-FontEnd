@@ -1762,7 +1762,7 @@ section .content p {
 .formbold-checkbox-label {
   display: flex;
   cursor: pointer;
-  user-select: none;
+  /* user-select: none; */
   font-size: 16px;
   line-height: 24px;
   color: #536387;
@@ -2073,4 +2073,198 @@ tbody tr {
 }
 tbody tr:hover {
   background: #014055;
+}
+
+
+/* payment */
+.fielda {
+  margin-bottom: 25px;
+}
+.fielda.fulla {
+  width: 100%;
+}
+.fielda.halfa {
+  width: calc(50% - 12px);
+}
+
+label .a {
+  display: block;
+  text-transform: uppercase;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+input {
+  padding: 12px;
+  border-radius: 6px;
+  border: 2px solid #e8ebed;
+  display: block;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+input::placeholder {
+  color: #e8ebed !important;
+}
+
+.flexa {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.flexa.justify-space-between {
+  justify-content: space-between;
+}
+
+.carda {
+  padding: 50px;
+  margin: 50px auto;
+  max-width: 850px;
+  background: #ffffff;
+  border-radius: 6px;
+  box-sizing: border-box;
+  box-shadow: 0px 24px 60px -1px rgba(37, 44, 54, 0.14);
+}
+.carda .containera {
+  max-width: 700px;
+  margin: 0 auto;
+}
+.card-titlea {
+  margin-bottom: 50px;
+}
+.card-titlea h2 {
+  margin: 0;
+}
+.card-bodya .payment-typea,
+.card-bodya .payment-infoa {
+  margin-bottom: 25px;
+}
+.card-bodya .payment-typea h4 {
+  margin: 0;
+}
+.card-bodya .payment-typea .typesa {
+  margin: 25px 0;
+}
+.card-bodya .payment-typea .typesa .typea {
+  width: 46%;
+  position: relative;
+  background: #f2f4f7;
+  border: 2px solid #e8ebed;
+  padding: 25px;
+  box-sizing: border-box;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.5s ease;
+}
+.card-bodya .payment-typea .typesa .typea:hover {
+  border-color: #28333b;
+}
+.card-bodya .payment-typea .typesa .typea:hover .logoa,
+.card-bodya .payment-typea .typesa .typea:hover p {
+  color: #28333b;
+}
+.card-bodya .payment-typea .typesa .typea.selecteda {
+  border-color: #40b3ff;
+  background: rgba(64, 179, 255, 0.1);
+}
+.card-bodya .payment-typea .typesa .typea.selecteda .logoa {
+  color: #40b3ff;
+}
+.card-bodya .payment-typea .typesa .typea.selecteda p {
+  color: #28333b;
+}
+.card-bodya .payment-typea .typesa .typea.selecteda::after {
+  content: '\f00c';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  top: -21px;
+  right: -21px;
+  background: #fff;
+  border: 2px solid #40b3ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card-bodya .payment-typea .typesa .typea .logoa,
+.card-bodya .payment-typea .typesa .typea p {
+  transition: all 0.5s ease;
+}
+.card-bodya .payment-typea .typesa .typea .logoa {
+  font-size: 48px;
+  color: #8a959c;
+}
+.card-bodya .payment-typea .typesa .typea p {
+  margin-bottom: 0;
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #8a959c;
+}
+
+.payment-infoa .columna {
+  width: calc(100% - 25px);
+}
+
+.payment-infoa .titlea {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.payment-infoa .titlea .numa {
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  border: 2px solid #40b3ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-right: 12px;
+  font-size: 12px;
+}
+.buttona {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  padding: 15px 25px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  background: transparent;
+  border: 2px solid transparent;
+}
+.buttona.button-linka {
+  padding: 0 0 2px;
+  margin: 0 25px;
+  border-bottom: 2px solid rgba(64, 179, 255, 0.5);
+  border-radius: 0;
+  opacity: 0.75;
+}
+.buttona.button-linka:hover {
+  border-bottom: 2px solid rgba(64, 179, 255, 1);
+  opacity: 1;
+}
+.buttona.button-primarya {
+  background: #40b3ff;
+  color: #fff;
+}
+.buttona.button-primarya:hover {
+  background: #218fd9;
+}
+.buttona.button-secondarya {
+  background: transparent;
+  border-color: #e8ebed;
+  color: #8a959c;
+}
+.buttona.button-secondarya:hover {
+  border-color: #28333b;
+  color: #28333b;
 }

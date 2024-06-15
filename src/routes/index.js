@@ -13,11 +13,13 @@ import Blog from "../User/Blog/Blog";
 import HomePage from "../User/Home/HomePage";
 import Shop from "../User/Shop/Shop";
 import DetailProduct from "../User/Shop/DetailProduct";
-import Checkout from "../User/Checkout/Checkout";
 import UserForm from "../User/Personal/UserForm";
 import ChangePassword from "../User/Personal/ChangePass";
 import OrderPage from "../User/Shop/OrderPage";
 import Invoice from "../User/Shop/InvoiceComponent/Invoice";
+import Payment from "../User/Checkout/Payment/Payment";
+import Success from "../User/Checkout/Success";
+import Failure from "../User/Checkout/Failure";
 
 // Public Route
 const publicRoutes = [
@@ -103,7 +105,15 @@ const privateRoutes = [
       },
       {
         path: "checkout",
-        component: Checkout,
+        component: Payment,
+      },
+      {
+        path: "success",
+        component: Success,
+      },
+      {
+        path: "failure",
+        component: Failure,
       },
       {
         path: "detail",

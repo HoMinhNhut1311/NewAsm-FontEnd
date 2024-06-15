@@ -2,7 +2,7 @@ import intance, * as request from "../instanceAxios.js";
 
 export const saveCart = async (cart) => {
   const response = await intance.post(`cart`, cart);
-  return response;
+  return response.data;
 };
 export const getAllCartByUser = async (userId, number, size) => {
   const response = await intance.get(
@@ -12,6 +12,9 @@ export const getAllCartByUser = async (userId, number, size) => {
 };
 export const findCartById = async (cartId) => {
   const response = await intance.get(`cart/${cartId}`);
-  console.log(response);
   return response.data;
+};
+export const processOrderWithVnpay = async(amount,cartId) => {
+  const response = await intance.get(`payment/createPayment?amount=${amount}&&cartId=${cartId}`);
+  return response;
 };

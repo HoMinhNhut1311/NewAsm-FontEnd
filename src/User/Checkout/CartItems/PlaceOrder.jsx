@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 function PlaceOrder() {
   const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const { cart, setCart, removeFromCart } = useContext(CartContext);
+  const { cart, removeFromCart } = useContext(CartContext);
   const { token } = useContext(UserContext);
   const [user, setUser] = useState({});
   const userId = parseJwt(token).userId;
@@ -50,7 +50,7 @@ function PlaceOrder() {
         productIds: productIds,
       };
       Swal.fire({
-        title: "Đã thêm sản phẩm vào giỏ hàng",
+        title: "Đã thanh toán thành công",
         icon: "success",
         text: `Tự động chuyển sang trang chủ sau 3 giây nữa`,
         timer: 3090,

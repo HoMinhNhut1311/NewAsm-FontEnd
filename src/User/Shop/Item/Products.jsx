@@ -8,15 +8,38 @@ function Products({ product }) {
   const { token } = useContext(UserContext);
   const { cart, addToCart, updateQuantity } = useContext(CartContext);
   const [isLoading, setIsLoading] = useState(true);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     if (product) {
       setIsLoading(false);
     }
   }, [cart]);
+  useEffect(() => {
+    calculateTotalPrice();
+  }, [cart]);
 
+  const calculateTotalPrice = () => {
+    let total = 0;
+    cart.forEach((item) => {
+      total += item.productPrice * item.quantity;
+    });
+    setTotalPrice(total);
+  };
   const addCart = (e) => {
     e.preventDefault();
+    const productPrice = parseFloat(product.productPrice);
+    const currentTotal = totalPrice + productPrice;
+
+    if (currentTotal > 1000000000) { // Kiểm tra tổng giá trị không vượt quá 1 tỷ
+      Swal.fire({
+        title: "Lỗi",
+        text: "Tổng tiền trong giỏ hàng đã vượt quá giới hạn. Không thể thêm sản phẩm này!",
+        icon: "error",
+      });
+      return;
+    }
+
     let prod = cart.find((c) => c.productId === product.productId);
     if (prod) {
       updateCart(product, prod.quantity + 1);
@@ -25,13 +48,14 @@ function Products({ product }) {
     }
   };
 
+
   const saveCart = (product) => {
     Swal.fire({
       title: "Success",
       text: `Đã thêm sản phẩm vào giỏ hàng`,
       icon: "success",
     }).then(() => {
-      addToCart(product,1);
+      addToCart(product, 1);
     });
   };
 
@@ -65,7 +89,7 @@ function Products({ product }) {
         <div className="card-img">
           <Link to={`furniture/${product.productId}`}>
             <a className="card-img-hover" href="product.html">
-            <img
+              <img
                 className="card-img-top card-img-back"
                 src={product.mediaFilePath}
                 alt={product.productName}

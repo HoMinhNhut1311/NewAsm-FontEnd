@@ -247,16 +247,6 @@ function Detail({ product }) {
                         <i className="fe fe-shopping-cart ms-2"></i>
                       </button>
                     </div>
-                    <div className="col-12 col-lg-auto">
-                      {/* <!-- Wishlist --> */}
-                      <button
-                        className="btn btn-outline-dark w-100 mb-2"
-                        data-toggle="button"
-                        // onClick={handleWishlist}
-                      >
-                        Wishlist <i className="fe fe-heart ms-2"></i>
-                      </button>
-                    </div>
                   </div>
                 </form>
               </div>

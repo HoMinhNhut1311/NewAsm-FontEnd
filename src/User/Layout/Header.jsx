@@ -24,12 +24,12 @@ function Header() {
   const handleShowSearch = () => setShowSearch(true);
   const handleCloseSearch = () => setShowSearch(false);
   useEffect(() => {
-    if (cart) {
+    if (cart || total < 1e9) {
       const sum = cart.reduce(
         (acc, item) => acc + item.productPrice * item.quantity,
         0
       );
-      setTotal(sum);
+      setTotal(sum.toLocaleString());
     }
   }, [cart]);
   const logout = async () => {

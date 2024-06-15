@@ -2,21 +2,21 @@ import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import { RingLoader } from "react-spinners";
 import { createProduct, updateProduct } from "../../../Data/Product/ProductApi";
-import {getAllCategory} from '../../../Data/Category/Category.js'
+import { getAllCategory } from "../../../Data/Category/Category.js";
 
 function CreateProduct({ refresh, isUpdate, detail }) {
   const [product, setProduct] = useState({
     productName: "",
     productPrice: 0,
     productDes: "",
-    categoryId : ""
+    categoryId: "",
   });
 
-  const [categories, setCategories] = useState([])
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-      getAllCategory().then((res) => setCategories(res));
-  },[])
+    getAllCategory().then((res) => setCategories(res));
+  }, []);
 
   useEffect(() => {
     if (isUpdate && detail) {
@@ -30,16 +30,24 @@ function CreateProduct({ refresh, isUpdate, detail }) {
   }, [isUpdate, detail]);
   const [onLoad, setOnLoad] = useState(false);
   const [errors, setErrors] = useState({});
+
   const validate = () => {
     const validationErrors = {};
+
     if (!product.productName.trim()) {
       validationErrors.productName = "Tên sản phẩm không được để trống";
     }
+
     if (!String(product.productPrice).trim()) {
       validationErrors.productPrice = "Giá không được để trống";
     } else if (isNaN(product.productPrice)) {
       validationErrors.productPrice = "Giá sản phẩm phải là số";
+    } else if (Number(product.productPrice) < 0) {
+      validationErrors.productPrice = "Giá sản phẩm không được âm";
+    } else if (Number(product.productPrice) > 1e9) {
+      validationErrors.productPrice = "Giá sản phẩm quá lớn";
     }
+
     return validationErrors;
   };
 
@@ -173,12 +181,18 @@ function CreateProduct({ refresh, isUpdate, detail }) {
       <div className="my-2">
         <label htmlFor="">Thể loại</label>
         <br />
-        <select value={product.categoryId} onChange={handleChange} className="form-control my-2">
-            {categories.map((category) => {
-              return (
-                <option value={category.categoryId}>{category.categoryName}</option>
-              )
-            })}
+        <select
+          value={product.categoryId}
+          onChange={handleChange}
+          className="form-control my-2"
+        >
+          {categories.map((category) => {
+            return (
+              <option value={category.categoryId}>
+                {category.categoryName}
+              </option>
+            );
+          })}
         </select>
       </div>
 
