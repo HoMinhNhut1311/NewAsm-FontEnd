@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import "../../../public/css/style.default.css";
-import "../../../public/css/custom.css";
+import "/public/css/style.default.css"
+import "/public/css/custom.css";
 import { loginApi } from "../../Data/User/userApi";
 import UserContext from "../../Context/userContext";
 import { RingLoader } from "react-spinners";
@@ -138,7 +138,7 @@ function Login() {
                       </button>
                       <LoginWithGoogle/>
                       <br />
-                      <a className="text-sm text-paleBlue wmnLink" href="#">
+                      <a className="text-sm text-paleBlue wmnLink" href="forgotPassword">
                         Forgot Password?
                       </a>
                       <br />

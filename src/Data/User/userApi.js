@@ -111,3 +111,14 @@ export const changePass = async (pw,token) => {
   console.log(response);
   return response.data;
 };
+
+export const resetPassword = async (pwNew) => {
+  const respone = await intance.post('/resetPassword', {
+    pwNew : pwNew
+  }, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  return respone.data;
+}

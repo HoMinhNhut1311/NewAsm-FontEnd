@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { validateUser } from '../../../Data/User/ValidateUser'
-import {UpdateUser} from '../../../Data/User/userApi'
+// import {UpdateUser} from '../../../Data/User/userApi'
 import Swal from "sweetalert2";
 
 // Chứa Username và Password
@@ -68,32 +68,32 @@ function UserDetailAccount({ userId,username, password, roleNames, setDetailAcco
     }
     }
 
-    const updateUser = () => {
-        console.log(account.roleNames);
-        setOnLoad(true);
-        UpdateUser(
-            account.userId,account.username,account.password,account.roleNames
-        ).then(res => {
-            Swal.fire({
-                title: 'Update thành công',
-                text: `Username : ${res.userName} + '\n'
-                        Password : ${res.password} + '\n'
-                        RoleNames : ${res.roleNames}`,
-                icon: "success",
-              }).then(() => {
-                setDetailAccount(account)
-                setIsChange(false)
-              }
-              );
-        }).finally(() => {
-            setOnLoad(false);
-        })
-    }
+    // const updateUser = () => {
+    //     console.log(account.roleNames);
+    //     setOnLoad(true);
+    //     UpdateUser(
+    //         account.userId,account.username,account.password,account.roleNames
+    //     ).then(res => {
+    //         Swal.fire({
+    //             title: 'Update thành công',
+    //             text: `Username : ${res.userName} + '\n'
+    //                     Password : ${res.password} + '\n'
+    //                     RoleNames : ${res.roleNames}`,
+    //             icon: "success",
+    //           }).then(() => {
+    //             setDetailAccount(account)
+    //             setIsChange(false)
+    //           }
+    //           );
+    //     }).finally(() => {
+    //         setOnLoad(false);
+    //     })
+    // }
 
 
     return (
         <>
-            <h2 className="text-center text-primary">{deniedChange ? 'Xem thông tin' : 'Chỉnh sửa thông tin'}</h2>
+            <h2 className="text-center text-primary">Xem thông tin</h2>
             <div className="form-group">
                 <label className="form-label fw-bold fs-5 text-green-yellow" htmlFor="username">Tài khoản</label>
                 <input
@@ -103,12 +103,12 @@ function UserDetailAccount({ userId,username, password, roleNames, setDetailAcco
                     name="username"
                     value={account.username}
                     readOnly={deniedChange}
-                    onChange={handleInputChange}
+                    // onChange={handleInputChange}
                 />
-                <span className="error-message text-danger">{errorUsername}</span>
+                {/* <span className="error-message text-danger">{errorUsername}</span> */}
             </div>
 
-            <div className="form-group">
+            {/* <div className="form-group">
                 <label className="form-label fw-bold fs-5 text-green-yellow" htmlFor="password">Mật khẩu</label>
                 <input
                     type="text"
@@ -117,10 +117,10 @@ function UserDetailAccount({ userId,username, password, roleNames, setDetailAcco
                     name="password"
                     value={account.password}
                     readOnly={deniedChange}
-                    onChange={handleInputChange}
+                    // onChange={handleInputChange}
                 />
                 <span className="error-message text-danger">{errorPassword}</span>
-            </div>
+            </div> */}
 
             <div className="form-group mt-2">
                     {/* <div className="form-check form-check-inline">
@@ -143,15 +143,15 @@ function UserDetailAccount({ userId,username, password, roleNames, setDetailAcco
             </div>
 
             <div className="d-flex justify-content-end mt-3">
-                {isChange 
+                {/* {isChange 
                 ? <button className="btn btn-primary me-3" onClick={() => updateUser()}>Cập nhật</button>
                     : <button className="btn btn-warning me-3">Chưa đủ điều kiện cập nhật</button>
-            }
+            } */}
             
             
-                <button className="btn btn-success" onClick={() => setDeniedChange(!deniedChange)}>
+                {/* <button className="btn btn-success" onClick={() => setDeniedChange(!deniedChange)}>
                     {deniedChange ? "Thay đổi" : "Chỉ đọc"}
-                </button>
+                </button> */}
             </div>
         </>
     );

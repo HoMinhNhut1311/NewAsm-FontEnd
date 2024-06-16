@@ -17,10 +17,21 @@ function LoginWithGoogle(   ) {
         });
     }, []);
 
+
     const handleLoginWithGoogle = async (code) => {
         const res = await callBackUrlGoogle(code);
-        console.log(res);
         login(res)
+        if (res.firstOauth2) {
+            Swal.fire({
+                title : "Chào mừng bạn lần đầu tham gia với chúng tôi với Google Account",
+                text : `Hãy check Email của bạn để kiểm tra thông tin Username và mật khẩu 
+                \n(vui lòng đổi mật khẩu để bảo mật hơn)`,
+                icon : 'success'
+            }).then(() => {
+                navi('/user')
+            })
+        }
+        else {
         Swal.fire({
             title : "Đăng nhập Google thành công",
             text : `Chào bạn ${res.fullName}`,
@@ -28,6 +39,8 @@ function LoginWithGoogle(   ) {
         }).then(() => {
             navi('/user')
         })
+        queryParam.set('code',null)
+    }
     }
 
     useEffect(() => {

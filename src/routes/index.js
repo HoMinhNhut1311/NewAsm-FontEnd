@@ -20,12 +20,19 @@ import Invoice from "../User/Shop/InvoiceComponent/Invoice";
 import Payment from "../User/Checkout/Payment/Payment";
 import Success from "../User/Checkout/Success";
 import Failure from "../User/Checkout/Failure";
+import ForgotPassword from "../Account/Login/ForgotPassword";
+import VerifyCode from "../Account/Login/VerifyCode";
+import ResetPassword from "../Account/Login/ResetPassword";
 
 // Public Route
 const publicRoutes = [
   { path: "/", component: Home },
   { path: "/login", component: Login },
   { path: "/user", component: UserPage },
+  { path : "/forgotPassword", component : ForgotPassword},
+  { path : "/verifyCode/:email" , component : VerifyCode},
+  { path : "/resetPassword" , component : ResetPassword}
+
 ];
 
 // Private Route
