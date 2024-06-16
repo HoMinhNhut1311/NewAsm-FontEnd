@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "/public/css/style.default.css"
 import "/public/css/custom.css";
 import { loginApi } from "../../Data/User/userApi";
@@ -138,9 +138,9 @@ function Login() {
                       </button>
                       <LoginWithGoogle/>
                       <br />
-                      <a className="text-sm text-paleBlue wmnLink" href="forgotPassword">
+                      <Link className="text-sm text-paleBlue wmnLink" to="forgotPassword">
                         Forgot Password?
-                      </a>
+                      </Link>
                       <br />
                       <small className="text-gray-500">
                         Do not have an account?{" "}
