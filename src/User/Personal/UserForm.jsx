@@ -7,6 +7,7 @@ import {
   UploadImageProFile,
 } from "../../Data/User/userApi.js";
 import { parseJwt } from "../../Utils/Jwt.js";
+import { RingLoader } from "react-spinners";
 
 function UserForm() {
   const { token } = useContext(UserContext);
@@ -14,11 +15,14 @@ function UserForm() {
   const [errorMessage, setErrorMessage] = useState("");
   const [user, setUser] = useState({});
   const userId = parseJwt(token).userId;
+  const [profileId, setProfileId] = useState("");
+  const [onLoad, setOnLoad] = useState(false);
   useEffect(() => {
     selectById(userId).then((res) => {
       setUser(res);
+      setProfileId(res.profileId);
     });
-  },[]);
+  }, []);
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -69,57 +73,57 @@ function UserForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      if (selectedFile === null) {
-        return Swal.fire({
-          title: "Vui lòng chọn file trước khi cập nhật",
-          icon: "question",
-        });
-      } else {
-        const fd = new FormData();
-        fd.append("image", selectedFile);
-        UploadImageProFile(user.profileId, fd);
-      }
-
-      let response = await UpdateProfile(
-        user.profileId,
-        user.fullName,
-        user.sex,
-        user.birth,
-        user.email,
-        user.phone,
-        user.userId
-      );
-
-      if (response) {
+    setOnLoad(true);
+    console.log(user.fullName);
+    console.log(profileId);
+    if (selectedFile === null) {
+      return Swal.fire({
+        title: "Vui lòng chọn file trước khi cập nhật",
+        icon: "question",
+      });
+    } else {
+      const fd = new FormData();
+      fd.append("image", selectedFile);
+      await UploadImageProFile(user.profileId, fd);
+    }
+    setOnLoad(false)
+    await UpdateProfile(
+      profileId,
+      user.fullName,
+      user.sex,
+      user.birth,
+      user.email,
+      user.phone,
+      user.userId
+    )
+      .then((res) => {
         Swal.fire({
           title: "Cập nhật thành công!",
           text: `Thành công`,
           icon: "success",
         }).then(() => {
-          setUser({
-            
-          });
+          setUser({});
         });
-      } else {
+      })
+      .catch((error) => {
+        console.error("Error updating profile:", error);
         Swal.fire({
           title: "Cập nhật thất bại!",
           text: `Lỗi `,
           icon: "error",
         });
-      }
-    } catch (error) {
-      console.error("Error updating profile:", error);
-      Swal.fire({
-        title: "Cập nhật thất bại!",
-        text: `Lỗi `,
-        icon: "error",
       });
-    }
   };
 
   return (
     <div className="formbold-main-wrapper">
+      {onLoad && (
+        <div className="my-loader-wrapper">
+          <div className="my-loader">
+            <RingLoader color="#36d7b7" size={200} loading={onLoad} />
+          </div>
+        </div>
+      )}
       <div
         className="formbold-form-container d-flex border border-2"
         style={{ borderRadius: "15px" }}
@@ -268,11 +272,10 @@ function UserForm() {
               <label className="radio-button">
                 <input
                   type="radio"
-                  name="g"
+                  name="sex"
+                  id="male"
                   value="true"
-                  id="nam"
                   checked={user.sex === true}
-                  defaultChecked
                   onChange={handleRadioChange}
                 />
                 <span className="radio"></span>
@@ -284,9 +287,9 @@ function UserForm() {
               <label className="radio-button">
                 <input
                   type="radio"
-                  name="g"
+                  name="sex"
+                  id="female"
                   value="false"
-                  id="nu"
                   checked={user.sex === false}
                   onChange={handleRadioChange}
                 />
@@ -297,7 +300,7 @@ function UserForm() {
               </label>
             </div>
             <button className="formbold-btn" onClick={handleSubmit}>
-              Register Now
+              Cập nhật thông tin
             </button>
           </form>
         </div>

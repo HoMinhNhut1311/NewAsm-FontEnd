@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import { RingLoader } from "react-spinners";
-import { createProduct, updateProduct } from "../../../Data/Product/ProductApi";
+import { createProduct } from "../../../Data/Product/ProductApi";
 import { getAllCategory } from "../../../Data/Category/Category.js";
 
-function CreateProduct({ refresh, isUpdate, detail }) {
+function CreateProduct({ refresh }) {
   const [product, setProduct] = useState({
     productName: "",
     productPrice: 0,
@@ -18,16 +18,6 @@ function CreateProduct({ refresh, isUpdate, detail }) {
     getAllCategory().then((res) => setCategories(res));
   }, []);
 
-  useEffect(() => {
-    if (isUpdate && detail) {
-      setProduct({
-        productName: detail.productName,
-        productPrice: detail.productPrice,
-        productDes: detail.productDes,
-        categoryId: detail.categoryId,
-      });
-    }
-  }, [isUpdate, detail]);
   const [onLoad, setOnLoad] = useState(false);
   const [errors, setErrors] = useState({});
 
@@ -67,16 +57,10 @@ function CreateProduct({ refresh, isUpdate, detail }) {
       setOnLoad(true);
       try {
         let response;
-        if (isUpdate) {
-          response = await updateProduct(product, detail.productId);
-        } else {
-          response = await createProduct(product);
-        }
+        response = await createProduct(product);
         if (response.status === 200 || response.status === 201) {
           Swal.fire({
-            title: isUpdate
-              ? "Cập nhật thành công!"
-              : "Tạo sản phẩm thành công!",
+            title: "Cập nhật thành công!",
             text: `${response.data.productName} -- ${response.data.productPrice} -- ${response.data.categoryName}`,
             icon: "success",
           }).then(() => {
@@ -90,7 +74,7 @@ function CreateProduct({ refresh, isUpdate, detail }) {
           });
         } else {
           Swal.fire({
-            title: isUpdate ? "Cập nhật thất bại!" : "Tạo sản phẩm thất bại!",
+            title: "Tạo sản phẩm thất bại!",
             text: `Lỗi : ${response.data.message}`,
             icon: "error",
           });
@@ -188,7 +172,7 @@ function CreateProduct({ refresh, isUpdate, detail }) {
         >
           {categories.map((category) => {
             return (
-              <option value={category.categoryId}>
+              <option value={category.categoryId} key={category.categoryId}>
                 {category.categoryName}
               </option>
             );
@@ -198,7 +182,7 @@ function CreateProduct({ refresh, isUpdate, detail }) {
 
       <div className="d-flex justify-content-end">
         <button className="btn btn-primary mt-3 p-2" onClick={handleSubmit}>
-          {isUpdate ? "Cập nhật" : "Tạo mới"}
+          {"Tạo mới"}
         </button>
       </div>
     </div>

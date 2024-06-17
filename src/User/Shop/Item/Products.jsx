@@ -108,7 +108,7 @@ function Products({ product }) {
                   className="btn btn-xs btn-circle btn-white-primary"
                   title="view"
                 >
-                  <i className="fe fe-eye"></i>
+                 <i className="bi bi-eye-fill"></i>
                 </button>
               </span>
             </Link>
@@ -118,7 +118,7 @@ function Products({ product }) {
                   className="btn btn-xs btn-circle btn-white-primary"
                   title="cart"
                 >
-                  <i className="fe fe-shopping-cart"></i>
+                   <i className="bi bi-cart-fill icon-large"></i>
                 </button>
               ) : (
                 <button
@@ -126,24 +126,7 @@ function Products({ product }) {
                   title="cart"
                   onClick={(e) => addCart(e)}
                 >
-                  <i className="fe fe-shopping-cart"></i>
-                </button>
-              )}
-            </span>
-            <span className="card-action">
-              {token == null ? (
-                <button
-                  className="btn btn-xs btn-circle btn-white-primary"
-                  title="wishlist"
-                >
-                  <i className="fe fe-heart"></i>
-                </button>
-              ) : (
-                <button
-                  className="btn btn-xs btn-circle btn-white-primary"
-                  title="wishlist"
-                >
-                  <i className="fe fe-heart"></i>
+                   <i className="bi bi-cart-fill icon-large"></i>
                 </button>
               )}
             </span>
