@@ -8,7 +8,9 @@ function UserPage() {
   useDynamicCSS("/public/css/theme.bundle.css");
   useDynamicCSS("/public/css/customUser.css");
   useDynamicCSS("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css")
+  console.log("user render")
   return (
+
     <>
       <Header />
       <div>

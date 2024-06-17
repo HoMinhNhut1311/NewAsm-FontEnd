@@ -138,7 +138,7 @@ function Login() {
                       </button>
                       <LoginWithGoogle/>
                       <br />
-                      <Link className="text-sm text-paleBlue wmnLink" to="forgotPassword">
+                      <Link className="text-sm text-paleBlue wmnLink" to="/forgotPassword">
                         Forgot Password?
                       </Link>
                       <br />

@@ -8,7 +8,7 @@ const PageNotFound = () => {
         <div className="bg-white">
             <h2>Page Not Found : 404</h2>
             <h3>Đường dẫn không tồn tại ~ Hồ Minh Nhựt</h3>
-            <button onClick={() => navigate('-1')} className="btn btn-warning">Trở lại trang chủ</button>
+            <button onClick={() => navigate(-1)} className="btn btn-warning">Trở lại trang chủ</button>
         </div>
     )
 }

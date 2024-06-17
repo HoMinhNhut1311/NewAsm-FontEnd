@@ -23,15 +23,16 @@ import Failure from "../User/Checkout/Failure";
 import ForgotPassword from "../Account/Login/ForgotPassword";
 import VerifyCode from "../Account/Login/VerifyCode";
 import ResetPassword from "../Account/Login/ResetPassword";
+import NotHasPermission from "../Account/Login/NotHasPermission";
 
 // Public Route
 const publicRoutes = [
   { path: "/", component: Home },
   { path: "/login", component: Login },
-  { path: "/user", component: UserPage },
   { path : "/forgotPassword", component : ForgotPassword},
   { path : "/verifyCode/:email" , component : VerifyCode},
-  { path : "/resetPassword" , component : ResetPassword}
+  { path : "/resetPassword" , component : ResetPassword},
+  { path : "/notHasPermission", component : NotHasPermission}
 
 ];
 
@@ -39,7 +40,7 @@ const publicRoutes = [
 const privateRoutes = [
   {
     path: "/admin",
-    component: AdminPage,
+    component: AdminPage, requiredRole : 'ROLE_ADMIN',
     childrenRoute: [
       {
         path: "",
@@ -83,7 +84,7 @@ const privateRoutes = [
   },
   {
     path: "/user",
-    component: UserPage,
+    component: UserPage, requiredRole : 'ROLE_USER',
     childrenRoute: [
       {
         path: "",

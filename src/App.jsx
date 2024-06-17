@@ -43,7 +43,7 @@ const createRoutesPrivate = (routes) => {
     if (route.childrenRoute) {
       return (
         <Route key={index} path={route.path} element={route.component ? 
-          <ProtectedRoute>
+          <ProtectedRoute requiredRole={route.requiredRole}>
             <route.component />
            </ProtectedRoute>
         : null}>
