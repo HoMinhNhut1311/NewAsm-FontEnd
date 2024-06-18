@@ -47,10 +47,9 @@ function CreateUser({ refresh }) {
                     refresh();
                 });
             } else {
-                const responseData = res.response.data;
                 Swal.fire({
                     title: 'Tạo tài khoản thất bại!',
-                    text: `Lỗi: ${responseData.message}\nTrạng thái SQL: ${responseData.code}`,
+                    text: `Lỗi: ${res.data.message}\n`,
                     icon: 'error'
                 });
             }
