@@ -28,12 +28,9 @@ function Payment() {
     });
   }, [cart]);
 
-  const handleSubmit = async (payment) => {
+  const handleSubmit = async () => {
     let response;
     let URL = "";
-    if (payment === "momo") {
-      console.log(payment);
-    } else if (payment === "vnpay") {
       const currentDate = new Date().toISOString().split("T")[0];
       const productIds = [];
       console.log("a");
@@ -54,7 +51,6 @@ function Payment() {
       response = await processOrderWithVnpay(total,savedOrderId);
       URL = response.data.url;
       window.location.href = URL;
-    }
   };
 
   const handleSelect = (option) => {
@@ -71,7 +67,7 @@ function Payment() {
             <div className="payment-typea">
               <h4>Chọn phương thức thanh toán dưới đây</h4>
               <div className="typesa flexa justify-space-between">
-                <div
+                {/* <div
                   className={`typea ${selected === "momo" ? "selecteda" : ""}`}
                   onClick={() => handleSelect("momo")}
                 >
@@ -85,7 +81,7 @@ function Payment() {
                   <div className="text">
                     <p>Thanh toán bằng ví điện tử Momo</p>
                   </div>
-                </div>
+                </div> */}
 
                 <div
                   className={`typea ${selected === "vnpay" ? "selecteda" : ""}`}
@@ -132,7 +128,7 @@ function Payment() {
               </button>
             </div>
             <div className="flex-end">
-              <button className="buttona button-linka">Trở lại mua sắm</button>
+              {/* <button className="buttona button-linka">Trở lại mua sắm</button> */}
               <button
                 className="buttona button-primarya"
                 onClick={() => handleSubmit(selected)}

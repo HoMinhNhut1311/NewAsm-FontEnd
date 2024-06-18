@@ -1,6 +1,6 @@
 import {  faGraduationCap, faIgloo, faUsersGear, faUsersViewfinder } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import catImage from '/public/images/MyCat.jpg'
+import catImage from '/public/images/sofa.png'
 import { Link } from "react-router-dom";
 
 function Sidebar({handleActive, active , isLite}) {
@@ -15,8 +15,8 @@ function Sidebar({handleActive, active , isLite}) {
             alt="..."
           />
           <div className="ms-3 title">
-            <h1 className="h5 mb-1">WMN</h1>
-            <p className="text-sm text-gray-700 mb-0 lh-1">Cat Designer</p>
+            <h1 className="h5 mb-1">NH</h1>
+            <p className="text-sm text-gray-700 mb-0 lh-1">application</p>
           </div>
         </div>
         <span className="text-uppercase text-gray-600 text-xs mx-3 px-2 heading mb-2">

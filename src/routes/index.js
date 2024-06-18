@@ -20,27 +20,27 @@ import Invoice from "../User/Shop/InvoiceComponent/Invoice";
 import Payment from "../User/Checkout/Payment/Payment";
 import Success from "../User/Checkout/Success";
 import Failure from "../User/Checkout/Failure";
+import Register from "../Account/Register/Register";
 import ForgotPassword from "../Account/Login/ForgotPassword";
 import VerifyCode from "../Account/Login/VerifyCode";
 import ResetPassword from "../Account/Login/ResetPassword";
-import NotHasPermission from "../Account/Login/NotHasPermission";
 
 // Public Route
 const publicRoutes = [
   { path: "/", component: Home },
   { path: "/login", component: Login },
+  { path: "/user", component: UserPage },
+  { path: "/register", component: Register},
   { path : "/forgotPassword", component : ForgotPassword},
   { path : "/verifyCode/:email" , component : VerifyCode},
-  { path : "/resetPassword" , component : ResetPassword},
-  { path : "/notHasPermission", component : NotHasPermission}
-
+  { path : "/resetPassword" , component : ResetPassword}
 ];
 
 // Private Route
 const privateRoutes = [
   {
     path: "/admin",
-    component: AdminPage, requiredRole : 'ROLE_ADMIN',
+    component: AdminPage,
     childrenRoute: [
       {
         path: "",
@@ -84,7 +84,7 @@ const privateRoutes = [
   },
   {
     path: "/user",
-    component: UserPage, requiredRole : 'ROLE_USER',
+    component: UserPage,
     childrenRoute: [
       {
         path: "",

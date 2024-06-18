@@ -50,7 +50,7 @@ function Header() {
   return (
     <div>
       <Fragment>
-        <nav className="navbar navbar-expand-lg navbar-light bg-white">
+        <nav className="navbar navbar-expand-lg navbar-light bg-white border border-bottom-2">
           <div className="container">
             <Link to={"/user"}>
               <a className="navbar-brand"> Shopper. </a>
@@ -191,6 +191,7 @@ function Header() {
                 show={showCart}
                 onHide={handleCloseCart}
                 placement="end"
+                style={{ width: "500px" }}
               >
                 <Offcanvas.Header closeButton>
                   <Offcanvas.Title>

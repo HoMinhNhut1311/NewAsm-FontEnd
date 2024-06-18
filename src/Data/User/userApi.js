@@ -1,4 +1,5 @@
 import intance, * as request from "../instanceAxios.js";
+import instance from "../instanceAxios.js";
 // Login -> Select by username & password
 export const loginApi = async (username, password) => {
   const response = await request
@@ -10,6 +11,12 @@ export const loginApi = async (username, password) => {
       status: res.status,
       data: res.data,
     }));
+  return response;
+};
+
+export const registerApi = async (form) => {
+  const response = await intance.post(`register`, form);
+  console.log(response);
   return response;
 };
 
@@ -66,16 +73,21 @@ export const UpdateProfile = async (
   phone,
   userId
 ) => {
-  const response = await intance.put(`profile/${profileId}`, {
-    fullname: fullname,
-    sex: sex,
-    birth: birth,
-    email: email,
-    phone: phone,
-    userId: userId,
-  });
-  console.log(response);
-  return response.data;
+  try {
+    const response = await instance.put(`profile/${profileId}`, {
+      fullname: fullname,
+      sex: sex,
+      birth: birth,
+      email: email,
+      phone: phone,
+      userId: userId,
+    });
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error("Error in UpdateProfile:", error.response ? error.response.data : error.message);
+    throw error;
+  }
 };
 
 // Upload Image Profile
@@ -101,17 +113,16 @@ export const getUsersByRoleId = async (roleId) => {
   return response.data;
 };
 
-export const changePass = async (pw,token) => {
-  const response = await intance.post(`user/changeMyPass`, pw,{
+export const changePass = async (pw, token) => {
+  const response = await intance.post(`user/changeMyPass`, pw, {
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
   });
   console.log(response);
   return response.data;
 };
-
 export const resetPassword = async (pwNew) => {
   const respone = await intance.post('/resetPassword', {
     pwNew : pwNew

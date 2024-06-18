@@ -16,7 +16,7 @@ function HomePage() {
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-12 col-md-10 col-lg-8 col-xl-6">
-              <h2 className="mb-4 text-center">Top Sellers</h2>
+              <h2 className="mb-4 text-center">Sản phẩm </h2>
             </div>
           </div>
           <div className="tab-content">

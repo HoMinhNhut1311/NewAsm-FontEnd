@@ -42,11 +42,11 @@ function Item({ product }) {
 
       <div className="card-footer">
         <div className="card-p">
-          <span>$</span> {product.productPrice}.000
+        {product.productPrice}VND
         </div>
         <Link to={`shop/furniture/${product.productId}`}>
           <button className="card-b" title="cart">
-            <i className="fe fe-eye"></i>
+          <i className="bi bi-eye-fill"></i>
           </button>
         </Link>
       </div>

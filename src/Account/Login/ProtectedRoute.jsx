@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import {jwtDecode} from 'jwt-decode' 
-function ProtectedRoute({ children, requiredRole }) {
+function ProtectedRoute({ children }) {
     const token = sessionStorage.token;
     const navigate = useNavigate();
     const isAuthen = token != null;
@@ -9,13 +8,6 @@ function ProtectedRoute({ children, requiredRole }) {
         if (!isAuthen) {
             navigate('/login');
         }
-        console.log("protected");
-        const jwt = jwtDecode(token);
-        const scope = jwt.scope.split(" "); 
-            if (!scope.includes(requiredRole) && requiredRole) {
-                navigate('/notHasPermission');
-            }
-
     }, [isAuthen, navigate]);
 
     return children;

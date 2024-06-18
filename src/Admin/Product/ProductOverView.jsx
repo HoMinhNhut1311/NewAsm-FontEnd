@@ -9,6 +9,7 @@ import {
 } from "../../Data/Product/ProductApi";
 import CreateProduct from "./Form/CreateProduct";
 import ProductSearch from "./Search/ProductSearch";
+import UpdateProduct from "./Form/UpdateProduct";
 
 const PAGE_SIZE = 5;
 
@@ -22,7 +23,7 @@ function ProductOverView() {
   const [detail, setDetail] = useState({
     productId: "",
     productName: "",
-    productPrice: 0,
+    productPrice: "",
     productDes: "",
     categoryId: "1",
   });
@@ -35,12 +36,12 @@ function ProductOverView() {
     setOnLoad(false);
   };
 
-  const search = async(productName)=>{
+  const search = async (productName) => {
     setOnLoad(true);
     const response = await getProductsByProductNameContaining(productName);
     setData(response);
     setOnLoad(false);
-  }
+  };
   const refresh = async () => {
     console.log("Cập nhật lại trang");
     setOnLoad(true);
@@ -71,7 +72,7 @@ function ProductOverView() {
       setDataPage(PAGE_SIZE, pagePresent, 0);
       console.log("Cập nhật Data Page");
     } else {
-      search(keyWord)
+      search(keyWord);
     }
   }, [pagePresent, keyWord]);
 
@@ -101,7 +102,6 @@ function ProductOverView() {
   };
   const openForm = (id) => {
     try {
-      setHasCreate(true);
       setIsUpdate(true);
       findByProductId(id)
         .then((product) => {
@@ -112,6 +112,7 @@ function ProductOverView() {
             productDes: product.productDes,
             categoryId: product.categoryId,
           });
+          console.log(detail);
         })
         .catch((err) => {
           console.log(err);
@@ -142,7 +143,6 @@ function ProductOverView() {
               className="btn btn-outline-light p-3 fw-bold text-uppercase"
               onClick={() => {
                 setHasCreate((prev) => !prev);
-                setIsUpdate(false);
                 setDetail({
                   productId: "",
                   productName: "",
@@ -152,19 +152,18 @@ function ProductOverView() {
                 });
               }}
             >
-              {hasCreate ? "Ẩn Form Sản phẩm" : "Hiện Form Sản phẩm"}
+              {hasCreate || isUpdate
+                ? "Ẩn Form Sản phẩm"
+                : "Hiện Form Sản phẩm"}
             </button>
           </div>
         </div>
-        {hasCreate && (
-          <CreateProduct
-            refresh={refresh}
-            isUpdate={isUpdate}
-            key={1}
-            detail={detail}
-          />
+        {hasCreate && isUpdate == false && (
+          <CreateProduct refresh={refresh} key={1} />
         )}
-
+        {isUpdate && (
+          <UpdateProduct detail={detail} refresh={refresh} key={2} />
+        )}
         <div style={{ width: "30%", margin: "auto", float: "right" }}>
           <ProductSearch key={1} setKeyWord={setKeyWord} keyWord={keyWord} />
         </div>
@@ -199,9 +198,12 @@ function ProductOverView() {
 
                       <button
                         className="btn btn-warning"
-                        onClick={() => openForm(product.productId)}
+                        onClick={() => {
+                          openForm(product.productId);
+                          setIsUpdate(!isUpdate);
+                        }}
                       >
-                        Sửa
+                        {isUpdate ? "Đóng" : "Sửa"}
                       </button>
                     </td>
                   </tr>
