@@ -10,6 +10,7 @@ function CreateProduct({ refresh }) {
     productPrice: 0,
     productDes: "",
     categoryId: "",
+    stock: 0,
   });
 
   const [categories, setCategories] = useState([]);
@@ -32,10 +33,15 @@ function CreateProduct({ refresh }) {
       validationErrors.productPrice = "Giá không được để trống";
     } else if (isNaN(product.productPrice)) {
       validationErrors.productPrice = "Giá sản phẩm phải là số";
-    } else if (Number(product.productPrice) < 0) {
-      validationErrors.productPrice = "Giá sản phẩm không được âm";
+    } else if (Number(product.productPrice) < 1) {
+      validationErrors.productPrice = "Giá sản phẩm phải lớn hơn 0";
     } else if (Number(product.productPrice) > 1e9) {
       validationErrors.productPrice = "Giá sản phẩm quá lớn";
+    }
+    if (Number(product.stock) < 1) {
+      validationErrors.stock = "Số lượng sản phẩm phải lớn hơn 0";
+    } else if (Number(product.stock) > 1e9) {
+      validationErrors.stock = "Số lượng sản phẩm quá lớn";
     }
 
     return validationErrors;
@@ -144,7 +150,24 @@ function CreateProduct({ refresh }) {
           <p className="text-danger">{errors.productPrice}</p>
         )}
       </div>
-
+      <div className="form-group">
+        <label htmlFor="price" className="form-label">
+          Số lượng
+        </label>
+        <input
+          type="number"
+          className="form-control"
+          id="price"
+          value={product.stock}
+          onChange={(e) =>
+            setProduct({
+              ...product,
+              stock: e.target.value,
+            })
+          }
+        />
+        {errors.stock && <p className="text-danger">{errors.stock}</p>}
+      </div>
       <div className="form-group">
         <label htmlFor="desc" className="form-label">
           Mô tả

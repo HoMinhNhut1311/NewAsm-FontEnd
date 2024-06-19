@@ -22,8 +22,8 @@ function Header({handleLogOut, toggleLite, isLite}) {
                 className="navbar-brand text-uppercase text-reset"
               >
                 <div className="brand-text brand-big">
-                  <strong className="text-warning">NH</strong>
-                  <strong className='text-white'>application</strong>
+                  <strong className="text-warning">SHOPP</strong>
+                  <strong className='text-white'>ER</strong>
                 </div>
                 <div className="brand-text brand-sm">
                   <strong className="text-primary">NH</strong>

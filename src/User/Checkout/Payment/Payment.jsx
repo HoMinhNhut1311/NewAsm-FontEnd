@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../../Context/cartContext";
-import { processOrderWithVnpay, saveCart } from "../../../Data/Cart/CartApi";
+import { processOrderWithVnpay } from "../../../Data/Cart/CartApi";
 import Item from "../CartItems/Item/Item";
 import UserContext from "../../../Context/userContext";
 import { parseJwt } from "../../../Utils/Jwt";
 import { selectById } from "../../../Data/User/userApi";
+import Swal from "sweetalert2";
 
 function Payment() {
   const [selected, setSelected] = useState(null);
@@ -21,7 +22,7 @@ function Payment() {
       );
       setTotal(sum);
     } else {
-      setTotal(0);
+      window.location.href = "http://localhost:5173/user";
     }
     selectById(userId).then((res) => {
       setUser(res);
@@ -31,9 +32,9 @@ function Payment() {
   const handleSubmit = async () => {
     let response;
     let URL = "";
+    if (selected) {
       const currentDate = new Date().toISOString().split("T")[0];
       const productIds = [];
-      console.log("a");
       cart.forEach((item) => {
         for (let i = 0; i < item.quantity; i++) {
           productIds.push(item.productId);
@@ -41,16 +42,29 @@ function Payment() {
       });
       const order = {
         localDate: currentDate,
-        status: false,
+        status: true,
         username: user.userName,
         productIds: productIds,
       };
-      const savedOrderResponse = await saveCart(order);
-      const savedOrderId = savedOrderResponse.cartId;
-      console.log(savedOrderId);
-      response = await processOrderWithVnpay(total,savedOrderId);
+      // const savedOrderResponse = await saveCart(order);
+      // const savedOrderId = savedOrderResponse.cartId;
+      // console.log(savedOrderId);
+      response = await processOrderWithVnpay(
+        total,
+        order.localDate,
+        order.status,
+        order.username,
+        order.productIds
+      );
       URL = response.data.url;
       window.location.href = URL;
+    } else {
+      Swal.fire({
+        title: "Lỗi!",
+        text: "Vui lòng phương thức thanh toán",
+        icon: "error",
+      });
+    }
   };
 
   const handleSelect = (option) => {

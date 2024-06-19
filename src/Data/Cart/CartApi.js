@@ -14,7 +14,16 @@ export const findCartById = async (cartId) => {
   const response = await intance.get(`cart/${cartId}`);
   return response.data;
 };
-export const processOrderWithVnpay = async(amount,cartId) => {
-  const response = await intance.get(`payment/createPayment?amount=${amount}&&cartId=${cartId}`);
+export const processOrderWithVnpay = async (
+  amount,
+  localDate,
+  status,
+  username,
+  productIds
+) => {
+  const response = await intance.get(
+    `payment/createPayment?amount=${amount}
+    &&localDate=${localDate}&status=${status}&username=${username}&productIds=${productIds}`
+  );
   return response;
 };

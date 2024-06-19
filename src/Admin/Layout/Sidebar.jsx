@@ -15,8 +15,8 @@ function Sidebar({handleActive, active , isLite}) {
             alt="..."
           />
           <div className="ms-3 title">
-            <h1 className="h5 mb-1">NH</h1>
-            <p className="text-sm text-gray-700 mb-0 lh-1">application</p>
+            <h1 className="h5 mb-1">WMN</h1>
+            <p className="text-sm text-gray-700 mb-0 lh-1">SHOPPER</p>
           </div>
         </div>
         <span className="text-uppercase text-gray-600 text-xs mx-3 px-2 heading mb-2">
@@ -69,6 +69,19 @@ function Sidebar({handleActive, active , isLite}) {
               <FontAwesomeIcon icon={faGraduationCap} />
               </svg>
               <span>Quản lí sản phẩm</span>
+            </Link>
+          </li>
+
+          <li  className={active.numberPage === 5 ? 'sidebar-item active' : 'sidebar-item'} onClick={() => handleActive({
+            numberPage : 5,
+            title : 'Thống kê doanh thu',
+            des : ''
+          })}>
+            <Link className="sidebar-link" to={"revenue/overview"}>
+              <svg className="svg-icon svg-icon-sm svg-icon-heavy">
+              <FontAwesomeIcon icon={faGraduationCap} />
+              </svg>
+              <span>Thống kê doanh thu</span>
             </Link>
           </li>
         </ul>

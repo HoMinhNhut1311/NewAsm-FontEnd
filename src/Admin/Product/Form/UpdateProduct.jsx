@@ -13,6 +13,8 @@ function UpdateProduct({ refresh, detail }) {
     productPrice: detail.productPrice,
     productDes: detail.productDes,
     categoryId: detail.categoryId,
+    stock:detail.stock,
+    mediaFilePath: detail.mediaFilePath
   });
   const productId = detail.productId;
   const [onLoad, setOnLoad] = useState(false);
@@ -35,12 +37,16 @@ function UpdateProduct({ refresh, detail }) {
       validationErrors.productPrice = "Giá không được để trống";
     } else if (isNaN(product.productPrice)) {
       validationErrors.productPrice = "Giá sản phẩm phải là số";
-    } else if (Number(product.productPrice) < 0) {
-      validationErrors.productPrice = "Giá sản phẩm không được âm";
+    } else if (Number(product.productPrice) < 1) {
+      validationErrors.productPrice = "Giá sản phẩm phải lớn hơn 0";
     } else if (Number(product.productPrice) > 1e9) {
       validationErrors.productPrice = "Giá sản phẩm quá lớn";
     }
-
+    if (Number(product.stock) < 1) {
+      validationErrors.stock = "Số lượng sản phẩm phải lớn hơn 0";
+    } else if (Number(product.stock) > 1e9) {
+      validationErrors.stock = "Số lượng sản phẩm quá lớn";
+    }
     return validationErrors;
   };
 
@@ -57,7 +63,7 @@ function UpdateProduct({ refresh, detail }) {
       const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
       if (validImageTypes.includes(file.type)) {
         setImage(file);
-      } 
+      }
     }
   };
 
@@ -168,7 +174,24 @@ function UpdateProduct({ refresh, detail }) {
           <p className="text-danger">{errors.productPrice}</p>
         )}
       </div>
-
+      <div className="form-group">
+        <label htmlFor="stock" className="form-label">
+          Số lượng
+        </label>
+        <input
+          type="number"
+          className="form-control"
+          id="stock"
+          value={product.stock}
+          onChange={(e) =>
+            setProduct({
+              ...product,
+              stock: e.target.value,
+            })
+          }
+        />
+        {errors.stock && <p className="text-danger">{errors.stock}</p>}
+      </div>
       <div className="form-group">
         <label htmlFor="desc" className="form-label">
           Mô tả

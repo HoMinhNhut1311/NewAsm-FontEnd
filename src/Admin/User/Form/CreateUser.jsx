@@ -53,18 +53,22 @@ function CreateUser({refresh}) {
                     icon : 'success'
                 }).then(() => {
                     setUserCreate({
-                        username: '',
-                        password: '',
-                        roleNames: []
-                    });
-                    refresh();
-                });
-            } else {
+                        username : '',
+                        password : '',
+                        roleNames : []
+                    })
+                    refresh()
+                }
+                )
+            }
+            else {
+                const responseData = res.response.data;
                 Swal.fire({
-                    title: 'Tạo tài khoản thất bại!',
-                    text: `Lỗi: ${res.data.message}\n`,
-                    icon: 'error'
-                });
+                    title : 'Tạo tài khoản thất bại!',
+                    text : `Lỗi : ${responseData.message} + "
+                    \nTrạng thái Sql : ${responseData.code}`,
+                    icon : 'error'
+                })
             }
         }).finally(() => {
             setOnLoad(false)

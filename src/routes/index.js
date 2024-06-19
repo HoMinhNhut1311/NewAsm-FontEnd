@@ -24,16 +24,17 @@ import Register from "../Account/Register/Register";
 import ForgotPassword from "../Account/Login/ForgotPassword";
 import VerifyCode from "../Account/Login/VerifyCode";
 import ResetPassword from "../Account/Login/ResetPassword";
+import Revenue from "../Admin/Revenue/RevenueOverview";
 
 // Public Route
 const publicRoutes = [
   { path: "/", component: Home },
   { path: "/login", component: Login },
   { path: "/user", component: UserPage },
-  { path: "/register", component: Register},
-  { path : "/forgotPassword", component : ForgotPassword},
-  { path : "/verifyCode/:email" , component : VerifyCode},
-  { path : "/resetPassword" , component : ResetPassword}
+  { path: "/register", component: Register },
+  { path: "/forgotPassword", component: ForgotPassword },
+  { path: "/verifyCode/:email", component: VerifyCode },
+  { path: "/resetPassword", component: ResetPassword },
 ];
 
 // Private Route
@@ -78,6 +79,14 @@ const privateRoutes = [
             path: "detail/:idUser",
             component: UserDetail,
           },
+        ],
+      },
+      {
+        path: "revenue",
+        childrenRoute: [
+          { path: "overview", 
+            component: Revenue 
+          }
         ],
       },
     ],

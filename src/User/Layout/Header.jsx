@@ -16,9 +16,9 @@ function Header() {
   const [showCart, setShowCart] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const { token, setToken } = useContext(UserContext);
-  const { cart } = useContext(CartContext);
+  const { cart, setCart } = useContext(CartContext);
   const [total, setTotal] = useState(0);
-  const navi = useNavigate()
+  const navi = useNavigate();
   const handleShowCart = () => setShowCart(true);
   const handleCloseCart = () => setShowCart(false);
   const handleShowSearch = () => setShowSearch(true);
@@ -42,6 +42,7 @@ function Header() {
       color: "white",
       icon: "info",
     }).then(() => {
+      setCart([]);
       navi("/login");
     });
     sessionStorage.removeItem("token");
@@ -92,7 +93,7 @@ function Header() {
               </ul>
 
               <ul className="navbar-nav flex-row">
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <a
                     className="nav-link"
                     href="#modalSearch"
@@ -100,7 +101,7 @@ function Header() {
                   >
                     <i className="bi bi-search icon-large"></i>
                   </a>
-                </li>
+                </li> */}
                 <li className="nav-item ms-lg-n4">
                   {token ? (
                     <div className="top-account">
@@ -226,13 +227,13 @@ function Header() {
                       >
                         <span className="">Thanh toán</span>
                       </Link>
-                      <Link
+                      {/* <Link
                         to="cart"
                         className="btn w-100 btn-outline-dark"
                         style={buttonStyle}
                       >
                         <span className="">Xem giỏ hàng</span>
-                      </Link>
+                      </Link> */}
                     </>
                   )}
                 </div>

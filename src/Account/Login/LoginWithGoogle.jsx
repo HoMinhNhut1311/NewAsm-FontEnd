@@ -19,7 +19,6 @@ function LoginWithGoogle(   ) {
 
 
     const handleLoginWithGoogle = async (code) => {
-        console.log(queryParam);
         const res = await callBackUrlGoogle(code);
         login(res)
         if (res.firstOauth2) {
@@ -46,16 +45,8 @@ function LoginWithGoogle(   ) {
 
     useEffect(() => {
         const code  = queryParam.get('code');
-        const error = queryParam.get('error')
        if (code) {
             handleLoginWithGoogle(code);
-       }
-       if (error) {
-        Swal.fire({
-            title : "Từ chối đăng nhập Google (Từ chối cho phép quyền truy cập)",
-            text : error,
-            icon : 'question'
-        })
        }
     },[queryParam])
 

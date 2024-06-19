@@ -26,6 +26,7 @@ function ProductOverView() {
     productPrice: "",
     productDes: "",
     categoryId: "1",
+    stock: ""
   });
   const [keyWord, setKeyWord] = useState("");
   const setDataPage = async (size, number, category) => {
@@ -51,7 +52,10 @@ function ProductOverView() {
   useEffect(() => {
     refresh();
   }, []);
-
+  useEffect(() => {
+    console.log(detail); // Đảm bảo in ra giá trị detail mới
+  }, [detail]);
+  
   // Hàm Next
   const handleNext = () => {
     pagePresent === pageSize - 1
@@ -100,27 +104,25 @@ function ProductOverView() {
       }
     });
   };
-  const openForm = (id) => {
-    try {
-      setIsUpdate(true);
-      findByProductId(id)
-        .then((product) => {
-          setDetail({
-            productId: product.productId,
-            productName: product.productName,
-            productPrice: product.productPrice,
-            productDes: product.productDes,
-            categoryId: product.categoryId,
-          });
-          console.log(detail);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const openForm =async (id) => {
+   await findByProductId(id)
+    .then((product) => {
+      const updatedDetail = {
+        productId: product.productId,
+        productName: product.productName,
+        productPrice: product.productPrice,
+        productDes: product.productDes,
+        categoryId: product.categoryId,
+        stock: product.stock,
+        mediaFilePath: product.mediaFilePath
+      };
+      setDetail(updatedDetail);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
   return (
     <div className="container-fluid">
       {onLoad && (
@@ -152,7 +154,7 @@ function ProductOverView() {
                 });
               }}
             >
-              {hasCreate || isUpdate
+              {hasCreate
                 ? "Ẩn Form Sản phẩm"
                 : "Hiện Form Sản phẩm"}
             </button>
@@ -161,7 +163,7 @@ function ProductOverView() {
         {hasCreate && isUpdate == false && (
           <CreateProduct refresh={refresh} key={1} />
         )}
-        {isUpdate && (
+        {isUpdate == true && (
           <UpdateProduct detail={detail} refresh={refresh} key={2} />
         )}
         <div style={{ width: "30%", margin: "auto", float: "right" }}>
